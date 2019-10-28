@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CatchUp</string>
+    <string name="base_url">https://www.reddit.com/r/</string>
+</resources>
