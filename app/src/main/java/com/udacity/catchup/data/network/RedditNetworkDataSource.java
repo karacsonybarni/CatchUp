@@ -3,6 +3,8 @@ package com.udacity.catchup.data.network;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.Feed;
 import com.udacity.catchup.data.entity.Post;
@@ -18,11 +20,13 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 public class RedditNetworkDataSource {
 
     private static final String LOG_TAG = RedditNetworkDataSource.class.getSimpleName();
-    private static RedditNetworkDataSource instance;
 
+    private static RedditNetworkDataSource sInstance;
+    private MutableLiveData<List<Post>> postsLiveData;
     private RedditService redditService;
 
     private RedditNetworkDataSource(Context context) {
+        postsLiveData = new MutableLiveData<>();
         initRetrofit(context);
     }
 
@@ -39,10 +43,10 @@ public class RedditNetworkDataSource {
     }
 
     public static RedditNetworkDataSource getInstance(Context context) {
-        if (instance == null) {
-            instance = new RedditNetworkDataSource(context);
+        if (sInstance == null) {
+            sInstance = new RedditNetworkDataSource(context);
         }
-        return instance;
+        return sInstance;
     }
 
     public void fetchPosts() {
@@ -52,7 +56,7 @@ public class RedditNetworkDataSource {
                 Feed feed = response.body();
                 List<Post> posts = feed != null ? feed.getPosts() : null;
                 if (posts != null) {
-                    Log.d(LOG_TAG, posts.toString());
+                    postsLiveData.postValue(posts);
                 }
             }
 
@@ -64,5 +68,9 @@ public class RedditNetworkDataSource {
                 }
             }
         });
+    }
+
+    public MutableLiveData<List<Post>> getPosts() {
+        return postsLiveData;
     }
 }

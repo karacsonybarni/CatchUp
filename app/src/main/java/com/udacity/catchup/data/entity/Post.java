@@ -1,18 +1,19 @@
 package com.udacity.catchup.data.entity;
 
-import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import java.io.Serializable;
-import java.util.Arrays;
-
+@Entity
 @Root(name = "entry", strict = false)
-public class Post implements Serializable {
+public class Post {
 
+    @SuppressWarnings("NullableProblems")
+    @NonNull
+    @PrimaryKey
     @Element(name = "id")
     private String id;
 
@@ -25,11 +26,12 @@ public class Post implements Serializable {
     @Element(name = "content")
     private String content;
 
+    @NonNull
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
@@ -60,6 +62,9 @@ public class Post implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return "{" + TextUtils.join(", ", Arrays.asList(id, author, title, content)) + "}";
+        return "{id: " + id +
+                ",\nauthor: " + author +
+                ",\ntitle: " + title +
+                ",\ncontent: " + content + "}";
     }
 }
