@@ -6,11 +6,9 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.catchup.R;
-import com.udacity.catchup.data.entity.FeedDataElem;
 import com.udacity.catchup.data.entity.Feed;
 import com.udacity.catchup.data.entity.Post;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,7 +52,7 @@ public class RedditNetworkDataSource {
         redditService.getPosts().enqueue(new Callback<Feed>() {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
-                List<Post> posts = extractPosts(response.body());
+                List<Post> posts = TypeConverter.toPosts(response.body());
                 if (posts != null) {
                     postsLiveData.postValue(posts);
                 }
@@ -68,19 +66,6 @@ public class RedditNetworkDataSource {
                 }
             }
         });
-    }
-
-    private List<Post> extractPosts(Feed feed) {
-        List<FeedDataElem> feedElems = feed != null ? feed.getData().getChildren() : null;
-        if (feedElems == null || feedElems.size() == 0) {
-            return null;
-        }
-
-        List<Post> posts = new ArrayList<>();
-        for (FeedDataElem feedElem : feedElems) {
-            posts.add(feedElem.getPost());
-        }
-        return posts;
     }
 
     public MutableLiveData<List<Post>> getPosts() {

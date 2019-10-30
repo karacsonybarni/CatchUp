@@ -2,6 +2,10 @@
     <string name="app_name">CatchUp</string>
 
     <string name="base_url">https://www.reddit.com/r/</string>
+
     <string name="no_internet_connection">No internet connection</string>
     <string name="retry">Retry</string>
+    <string name="subreddit_icon">Subreddit icon</string>
+    <string name="post_details">Posted by %1$s %2$s</string>
+    <string name="posted_image">Posted image</string>
 </resources>
