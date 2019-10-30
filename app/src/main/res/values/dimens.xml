@@ -6,4 +6,5 @@
     <dimen name="icon_margin">16dp</dimen>
     <dimen name="subredditName_textSize">14sp</dimen>
     <dimen name="postDetails_textSize">12sp</dimen>
+    <dimen name="image_margin">16dp</dimen>
 </resources>
