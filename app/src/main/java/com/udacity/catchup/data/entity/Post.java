@@ -4,27 +4,32 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import com.google.gson.annotations.SerializedName;
 
 @Entity
-@Root(name = "entry", strict = false)
 public class Post {
 
     @SuppressWarnings("NullableProblems")
     @NonNull
     @PrimaryKey
-    @Element(name = "id")
     private String id;
 
-    @Element(name = "author")
-    private Author author;
+    @SerializedName("author")
+    private String authorName;
 
-    @Element(name = "title")
+    @SerializedName("created")
+    private long date;
+
     private String title;
 
-    @Element(name = "content")
-    private String content;
+    @SerializedName("post_hint")
+    private String type;
+
+    @SerializedName("selftext")
+    private String text;
+
+    @SerializedName("url")
+    private String mediaUrl;
 
     @NonNull
     public String getId() {
@@ -35,12 +40,20 @@ public class Post {
         this.id = id;
     }
 
-    public Author getAuthor() {
-        return author;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 
     public String getTitle() {
@@ -51,20 +64,27 @@ public class Post {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getType() {
+        return type;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "{id: " + id +
-                ",\nauthor: " + author +
-                ",\ntitle: " + title +
-                ",\ncontent: " + content + "}";
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 }

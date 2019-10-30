@@ -8,7 +8,6 @@ import androidx.room.RoomDatabase;
 import com.udacity.catchup.data.entity.Post;
 
 @androidx.room.Database(entities = {Post.class}, version = 1, exportSchema = false)
-@androidx.room.TypeConverters(TypeConverters.class)
 public abstract class Database extends RoomDatabase{
 
     private static final Object LOCK = new Object();

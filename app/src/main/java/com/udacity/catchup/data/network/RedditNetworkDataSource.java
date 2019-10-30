@@ -6,16 +6,18 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.catchup.R;
+import com.udacity.catchup.data.entity.FeedDataElem;
 import com.udacity.catchup.data.entity.Feed;
 import com.udacity.catchup.data.entity.Post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RedditNetworkDataSource {
 
@@ -33,10 +35,9 @@ public class RedditNetworkDataSource {
     private void initRetrofit(Context context) {
         String baseUrl = context.getString(R.string.base_url);
 
-        @SuppressWarnings("deprecation")
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         redditService = retrofit.create(RedditService.class);
@@ -53,8 +54,7 @@ public class RedditNetworkDataSource {
         redditService.getPosts().enqueue(new Callback<Feed>() {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
-                Feed feed = response.body();
-                List<Post> posts = feed != null ? feed.getPosts() : null;
+                List<Post> posts = extractPosts(response.body());
                 if (posts != null) {
                     postsLiveData.postValue(posts);
                 }
@@ -68,6 +68,19 @@ public class RedditNetworkDataSource {
                 }
             }
         });
+    }
+
+    private List<Post> extractPosts(Feed feed) {
+        List<FeedDataElem> feedElems = feed != null ? feed.getData().getChildren() : null;
+        if (feedElems == null || feedElems.size() == 0) {
+            return null;
+        }
+
+        List<Post> posts = new ArrayList<>();
+        for (FeedDataElem feedElem : feedElems) {
+            posts.add(feedElem.getPost());
+        }
+        return posts;
     }
 
     public MutableLiveData<List<Post>> getPosts() {

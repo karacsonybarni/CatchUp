@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 
 public interface RedditService {
 
-    @GET("earthporn/.rss")
+    @GET("earthporn.json")
     Call<Feed> getPosts();
 }
