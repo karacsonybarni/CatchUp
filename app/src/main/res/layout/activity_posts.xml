@@ -7,80 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.postsview.PostsActivity">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/postFragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/card_margin"
-        app:contentPadding="@dimen/card_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/subredditIcon"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:background="@color/colorAccent"
-                android:contentDescription="@string/subreddit_icon"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/subredditName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/icon_margin"
-                android:layout_marginLeft="@dimen/icon_margin"
-                android:textColor="@color/primaryText"
-                android:textSize="@dimen/subredditName_textSize"
-                app:fontFamily="sans-serif-medium"
-                app:layout_constraintLeft_toRightOf="@+id/subredditIcon"
-                app:layout_constraintTop_toTopOf="@+id/subredditIcon" />
-
-            <TextView
-                android:id="@+id/postDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/icon_margin"
-                android:layout_marginLeft="@dimen/icon_margin"
-                android:textColor="@color/secondaryText"
-                android:textSize="@dimen/postDetails_textSize"
-                app:layout_constraintLeft_toRightOf="@+id/subredditIcon"
-                app:layout_constraintTop_toBottomOf="@+id/subredditName" />
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/icon_margin"
-                android:textColor="@color/primaryText"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subredditIcon" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/image_margin"
-                android:contentDescription="@string/posted_image"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
