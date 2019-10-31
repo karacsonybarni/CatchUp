@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.udacity.catchup.R;
@@ -18,33 +19,22 @@ import java.util.List;
 public class PostsActivity extends AppCompatActivity {
 
     private PostsActivityViewModel viewModel;
-    private PostFragment postFragment;
+    private PostPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posts);
 
-        initPostFragment();
+        initViewPager();
         viewModel = getViewModel();
         viewModel.getPosts().observe(this, this::updatePosts);
     }
 
-    private void initPostFragment() {
-        postFragment =
-                (PostFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.postFragmentContainer);
-        if (postFragment == null) {
-            postFragment = new PostFragment();
-            addPostFragment();
-        }
-    }
-
-    private void addPostFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.postFragmentContainer, postFragment)
-                .commit();
+    private void initViewPager() {
+        adapter = new PostPagerAdapter(getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
     }
 
     private PostsActivityViewModel getViewModel() {
@@ -55,8 +45,8 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     private void updatePosts(List<Post> posts) {
-        if (posts.size() > 0) {
-            postFragment.updatePost(posts.get(0));
+        if (posts != null && posts.size() > 0) {
+            adapter.updatePosts(posts);
         } else {
             showInternetErrorSnackbar();
         }
@@ -65,7 +55,7 @@ public class PostsActivity extends AppCompatActivity {
     private void showInternetErrorSnackbar() {
         Snackbar
                 .make(
-                        findViewById(R.id.root),
+                        findViewById(R.id.viewPager),
                         getString(R.string.no_internet_connection),
                         Snackbar.LENGTH_LONG)
                 .setAction(

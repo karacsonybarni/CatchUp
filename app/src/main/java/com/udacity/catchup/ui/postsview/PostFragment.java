@@ -12,14 +12,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.Post;
 
+import java.util.List;
+import java.util.Objects;
+
 public class PostFragment extends Fragment {
 
+    private static final String POST_POSITION = "postPosition";
+
+    private PostsActivityViewModel viewModel;
     private Post post;
+    private int postPosition;
+
     private View rootView;
     private TextView subredditName;
     private TextView postDetails;
@@ -34,6 +44,7 @@ public class PostFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         rootView = inflateView(inflater, container);
         initViews();
+        populateViews(savedInstanceState);
         return rootView;
     }
 
@@ -48,8 +59,27 @@ public class PostFragment extends Fragment {
         image = rootView.findViewById(R.id.image);
     }
 
-    void updatePost(Post post) {
-        this.post = post;
+    private void populateViews(Bundle savedInstanceState) {
+        if (post == null) {
+            initPost(savedInstanceState);
+        } else {
+            populateViews();
+        }
+    }
+
+    private void initPost(Bundle savedInstanceState) {
+        postPosition = savedInstanceState.getInt(POST_POSITION);
+        viewModel = ViewModelProviders.of(getNonNullActivity()).get(PostsActivityViewModel.class);
+        viewModel.getPosts().observe(this, this::populateViews);
+    }
+
+    @NonNull
+    private FragmentActivity getNonNullActivity() {
+        return Objects.requireNonNull(getActivity());
+    }
+
+    private void populateViews(List<Post> posts) {
+        post = posts.get(postPosition);
         populateViews();
     }
 
@@ -83,5 +113,27 @@ public class PostFragment extends Fragment {
     private boolean hasImage() {
         String type = post.getType();
         return type != null && type.contains("image");
+    }
+
+    void setPost(Post post) {
+        this.post = post;
+    }
+
+    void setPostPosition(int postPosition) {
+        this.postPosition = postPosition;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(POST_POSITION, postPosition);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (viewModel != null) {
+            viewModel.getPosts().removeObservers(this);
+        }
+        super.onDestroy();
     }
 }
