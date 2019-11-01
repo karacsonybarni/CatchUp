@@ -10,13 +10,19 @@ import java.util.List;
 
 class PostsActivityViewModel extends ViewModel {
 
+    private Repository repository;
     private LiveData<List<Post>> posts;
 
     PostsActivityViewModel(Repository repository) {
+        this.repository = repository;
         posts = repository.getPosts();
     }
 
     LiveData<List<Post>> getPosts() {
         return posts;
+    }
+
+    void fetchPosts() {
+        repository.fetchPosts();
     }
 }

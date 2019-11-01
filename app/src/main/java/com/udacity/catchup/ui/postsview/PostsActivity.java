@@ -60,7 +60,7 @@ public class PostsActivity extends AppCompatActivity {
                         Snackbar.LENGTH_LONG)
                 .setAction(
                         getString(R.string.retry),
-                        v -> RedditNetworkDataSource.getInstance(this).fetchPosts())
+                        v -> viewModel.fetchPosts())
                 .show();
     }
 

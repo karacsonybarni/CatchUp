@@ -9,6 +9,7 @@ import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.Feed;
 import com.udacity.catchup.data.entity.Post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,6 +25,10 @@ public class RedditNetworkDataSource {
     private static RedditNetworkDataSource sInstance;
     private MutableLiveData<List<Post>> postsLiveData;
     private RedditService redditService;
+
+    private List<String> subreddits;
+    private List<Post> postsToStore;
+    private int numOfSubredditsFetched;
 
     private RedditNetworkDataSource(Context context) {
         postsLiveData = new MutableLiveData<>();
@@ -48,13 +53,26 @@ public class RedditNetworkDataSource {
         return sInstance;
     }
 
-    public void fetchPosts() {
-        redditService.getPosts().enqueue(new Callback<Feed>() {
+    public void fetchSubreddits(List<String> subreddits) {
+        this.subreddits = subreddits;
+        postsToStore = new ArrayList<>();
+        numOfSubredditsFetched = 0;
+        for (String subreddit : subreddits) {
+            fetchPosts(subreddit);
+        }
+    }
+
+    private void fetchPosts(String subreddit) {
+        redditService.getPosts(subreddit).enqueue(new Callback<Feed>() {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
                 List<Post> posts = TypeConverter.toPosts(response.body());
                 if (posts != null) {
-                    postsLiveData.postValue(posts);
+                    postsToStore.addAll(posts);
+                }
+                numOfSubredditsFetched++;
+                if (numOfSubredditsFetched >= subreddits.size()) {
+                    postsLiveData.postValue(postsToStore);
                 }
             }
 

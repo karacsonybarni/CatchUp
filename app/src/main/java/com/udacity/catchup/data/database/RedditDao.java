@@ -8,11 +8,12 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.Subreddit;
 
 import java.util.List;
 
 @Dao
-public abstract class PostDao {
+public abstract class RedditDao {
 
     @Query("SELECT * FROM post")
     public abstract LiveData<List<Post>> getPosts();
@@ -28,4 +29,10 @@ public abstract class PostDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract void bulkInsert(List<Post> posts);
+
+    @Query("SELECT * FROM subreddit")
+    public abstract LiveData<List<Subreddit>> getSubreddits();
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    public abstract void insertSubreddit(Subreddit subreddit);
 }

@@ -4,9 +4,10 @@ import com.udacity.catchup.data.entity.Feed;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface RedditService {
 
-    @GET("earthporn.json")
-    Call<Feed> getPosts();
+    @GET("{subreddit}.json")
+    Call<Feed> getPosts(@Path("subreddit") String subreddit);
 }
