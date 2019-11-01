@@ -16,10 +16,15 @@ Occasional reddit users.
 ## Features
 ### Main features:
 ● Stores a set of subreddits
+
 ● Shows a post from one subreddit at a time
+
 ● Provides possibility to interact with a post (i.e. view image posts, play video posts)
+
 ● Displays comments (or a subset), thumbnails, and comment text and links
+
 ● The user can scroll/swipe left or right to see other posts
+
 ## Technical details
 App will be written solely in the Java Programming Language using Android Studio 3.5.1 with
 Gradle 5.4.1.
