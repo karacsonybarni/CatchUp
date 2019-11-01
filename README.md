@@ -26,7 +26,7 @@ Gradle 5.4.1.
 The value resources (colors, strings, themes etc.) will be stored in the src/main/res/values folder
 in their corresponding xml files.
 ### Gradle dependencies:
-● android.arch.persistence.room:runtime:1.1.1
+● android.arch.persistence.room:runtime:1.1.11
 ● android.arch.lifecycle:extensions:2.1.0
 ● androidx.lifecycle:lifecycle-common-java8:2.1.0
 ● androidx.appcompat:appcompat:1.1.0
