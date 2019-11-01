@@ -16,6 +16,7 @@ Occasional reddit users.
 ## Features
 ### Main features:
 ● Stores a set of subreddits
+
 ● Shows a post from one subreddit at a time
 
 ● Provides possibility to interact with a post (i.e. view image posts, play video posts)
@@ -31,14 +32,25 @@ The value resources (colors, strings, themes etc.) will be stored in the src/mai
 in their corresponding xml files.
 ### Gradle dependencies:
 ● android.arch.persistence.room:runtime:1.1.11
+
 ● android.arch.lifecycle:extensions:2.1.0
+
 ● androidx.lifecycle:lifecycle-common-java8:2.1.0
+
 ● androidx.appcompat:appcompat:1.1.0
+
 ● androidx.cardview:cardview:1.0.0
+
 ● androidx.recyclerview:recyclerview:1.0.0
+
 ● com.android.support.constraint:constraint-layout:1.1.3
+
 ● com.google.android.gms:play-services-ads:18.2.0
+
 ● com.google.firebase:firebase-analytics:17.2.1
+
 ● com.squareup.retrofit2:retrofit:2.6.0
+
 ● com.squareup.picasso:picasso:2.71828
+
 ● android.arch.persistence.room:compiler:1.1.1
