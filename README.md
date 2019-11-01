@@ -16,7 +16,6 @@ Occasional reddit users.
 ## Features
 ### Main features:
 ● Stores a set of subreddits
-
 ● Shows a post from one subreddit at a time
 
 ● Provides possibility to interact with a post (i.e. view image posts, play video posts)
