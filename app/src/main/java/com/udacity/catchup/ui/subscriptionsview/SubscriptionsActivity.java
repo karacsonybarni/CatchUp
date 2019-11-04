@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -19,6 +21,7 @@ import com.udacity.catchup.ui.postsview.PostsActivity;
 import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SubscriptionsActivity extends AppCompatActivity {
 
@@ -33,6 +36,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
 
         viewModel = getViewModel();
         initViews();
+        getNonNullActionBar().setTitle(getString(R.string.subscriptions));
     }
 
     private SubscriptionsActivityViewModel getViewModel() {
@@ -40,6 +44,11 @@ public class SubscriptionsActivity extends AppCompatActivity {
         SubscriptionsViewModelFactory factory = new SubscriptionsViewModelFactory(repository);
         ViewModelProvider viewModelProvider = ViewModelProviders.of(this, factory);
         return viewModelProvider.get(SubscriptionsActivityViewModel.class);
+    }
+
+    @NonNull
+    private ActionBar getNonNullActionBar() {
+        return Objects.requireNonNull(getSupportActionBar());
     }
 
     private void initViews() {
