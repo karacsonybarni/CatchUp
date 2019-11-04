@@ -85,7 +85,7 @@ public class PostFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void populateViews() {
-        subredditName.setText("EarthPorn");
+        subredditName.setText(post.getSubredditName());
         postDetails.setText(getPostDetails());
         title.setText(post.getTitle());
         addImageIfIncluded();

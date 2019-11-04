@@ -2,17 +2,31 @@ package com.udacity.catchup.data.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(
+        foreignKeys =
+        @ForeignKey(
+                entity = Subreddit.class,
+                parentColumns = "name",
+                childColumns = "subredditId",
+                onDelete = CASCADE))
 public class Post {
 
     @SuppressWarnings("NullableProblems")
     @NonNull
     @PrimaryKey
     private String id;
+
+    private String subredditId;
+
+    @SerializedName("subreddit")
+    private String subredditName;
 
     @SerializedName("author")
     private String authorName;
@@ -38,6 +52,27 @@ public class Post {
 
     public void setId(@NonNull String id) {
         this.id = id;
+    }
+
+    public String getSubredditId() {
+        return subredditId;
+    }
+
+    public void setSubredditId(String subredditId) {
+        this.subredditId = subredditId;
+    }
+
+    public String getSubredditName() {
+        return subredditName;
+    }
+
+    public void setSubredditName(String subredditName) {
+        this.subredditName = subredditName;
+        if (subredditName != null) {
+            subredditId = subredditName.toLowerCase();
+        } else {
+            subredditId = null;
+        }
     }
 
     public String getAuthorName() {

@@ -35,4 +35,9 @@ class PostPagerAdapter extends FragmentStatePagerAdapter {
         this.posts = posts;
         notifyDataSetChanged();
     }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+    }
 }
