@@ -3,8 +3,10 @@ package com.udacity.catchup.ui.subscriptionsview;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,12 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
+import com.udacity.catchup.data.entity.Subreddit;
 import com.udacity.catchup.ui.postsview.PostsActivity;
 import com.udacity.catchup.util.InjectorUtils;
+
+import java.util.List;
 
 public class SubscriptionsActivity extends AppCompatActivity {
 
     private SubscriptionsActivityViewModel viewModel;
+    private ViewGroup subredditsView;
+    private EditText subredditInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +43,50 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        EditText subredditInput = findViewById(R.id.subredditInput);
-        Button addButton = findViewById(R.id.addSubredditButton);
-        String subredditName = subredditInput.getText().toString();
-        addButton.setOnClickListener(v -> viewModel.insertSubreddit(subredditName));
+        initSubreddits();
+        initInputRow();
+        initContinueButton();
+    }
 
+    private void initSubreddits() {
+        subredditsView = findViewById(R.id.subreddits);
+        viewModel.getSubreddits().observe(this, this::updateSubreddits);
+    }
+
+    private void updateSubreddits(List<Subreddit> subreddits) {
+        subredditsView.removeAllViews();
+        addSubreddits(subreddits);
+    }
+
+    private void addSubreddits(List<Subreddit> subreddits) {
+        for (Subreddit subreddit : subreddits) {
+            addSubredditItem(subreddit);
+        }
+    }
+
+    private void addSubredditItem(Subreddit subreddit) {
+        View subredditItem =
+                getLayoutInflater()
+                        .inflate(R.layout.item_subreddit, subredditsView, false);
+        TextView subredditName = subredditItem.findViewById(R.id.name);
+        subredditName.setText(subreddit.getName());
+        Button removeButton = subredditItem.findViewById(R.id.removeButton);
+        removeButton.setOnClickListener(v -> viewModel.removeSubreddit(subreddit));
+        subredditsView.addView(subredditItem);
+    }
+
+    private void initInputRow() {
+        subredditInput = findViewById(R.id.subredditInput);
+        Button addButton = findViewById(R.id.addSubredditButton);
+        addButton.setOnClickListener(this::insertSubreddit);
+    }
+
+    private void insertSubreddit(@SuppressWarnings("unused") View addButton) {
+        viewModel.insertSubreddit(subredditInput.getText().toString().trim());
+        subredditInput.setText("");
+    }
+
+    private void initContinueButton() {
         Button continueButton = findViewById(R.id.continueButton);
         continueButton.setOnClickListener(this::startPostsActivity);
     }
@@ -48,5 +94,11 @@ public class SubscriptionsActivity extends AppCompatActivity {
     private void startPostsActivity(@SuppressWarnings("unused") View controllerView) {
         Intent intent = new Intent(this, PostsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        viewModel.getSubreddits().removeObservers(this);
+        super.onDestroy();
     }
 }

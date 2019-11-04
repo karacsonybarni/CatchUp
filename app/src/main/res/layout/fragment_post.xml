@@ -30,7 +30,7 @@
                 android:layout_marginStart="@dimen/icon_margin"
                 android:layout_marginLeft="@dimen/icon_margin"
                 android:textColor="@color/primaryText"
-                android:textSize="@dimen/subredditName_textSize"
+                android:textSize="@dimen/subredditNameOnCard_textSize"
                 app:fontFamily="sans-serif-medium"
                 app:layout_constraintLeft_toRightOf="@+id/subredditIcon"
                 app:layout_constraintTop_toTopOf="@+id/subredditIcon" />

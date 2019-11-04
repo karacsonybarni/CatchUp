@@ -18,6 +18,8 @@ public class Repository {
     private RedditDao redditDao;
     private RedditNetworkDataSource redditNetworkDataSource;
     private Executor diskIO;
+    private LiveData<List<Subreddit>> subreddits;
+    private LiveData<List<Post>> posts;
 
     private List<String> lastLoadedSubredditNames;
 
@@ -28,13 +30,15 @@ public class Repository {
         redditDao = database.postDao();
         this.redditNetworkDataSource = redditNetworkDataSource;
         this.diskIO = diskIO;
+        subreddits = redditDao.getSubreddits();
+        posts = redditDao.getPosts();
 
         initObservers();
     }
 
     private void initObservers() {
         redditNetworkDataSource.getPosts().observeForever(this::storePosts);
-        redditDao.getSubreddits().observeForever(this::fetchPosts);
+        subreddits.observeForever(this::fetchPosts);
     }
 
     private void storePosts(List<Post> posts) {
@@ -66,7 +70,11 @@ public class Repository {
     }
 
     public LiveData<List<Post>> getPosts() {
-        return redditDao.getPosts();
+        return posts;
+    }
+
+    public LiveData<List<Subreddit>> getSubreddits() {
+        return subreddits;
     }
 
     public void insertSubreddit(String subredditName) {
@@ -75,5 +83,9 @@ public class Repository {
             subreddit.setName(subredditName);
             redditDao.insertSubreddit(subreddit);
         });
+    }
+
+    public void removeSubreddit(Subreddit subreddit) {
+        diskIO.execute(() -> redditDao.removeSubreddit(subreddit));
     }
 }
