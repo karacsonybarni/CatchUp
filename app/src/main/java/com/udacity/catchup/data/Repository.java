@@ -73,6 +73,10 @@ public class Repository {
         return posts;
     }
 
+    public LiveData<Post> getPost(String id) {
+        return redditDao.getPost(id);
+    }
+
     public LiveData<List<Subreddit>> getSubreddits() {
         return subreddits;
     }

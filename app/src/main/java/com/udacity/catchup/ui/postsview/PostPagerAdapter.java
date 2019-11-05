@@ -22,7 +22,6 @@ class PostPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         PostFragment fragment = new PostFragment();
         fragment.setPost(posts.get(position));
-        fragment.setPostPosition(position);
         return fragment;
     }
 

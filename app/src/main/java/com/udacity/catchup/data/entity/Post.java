@@ -1,6 +1,7 @@
 package com.udacity.catchup.data.entity;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -23,6 +24,7 @@ public class Post {
     @PrimaryKey
     private String id;
 
+    @ColumnInfo(index = true)
     private String subredditId;
 
     @SerializedName("subreddit")

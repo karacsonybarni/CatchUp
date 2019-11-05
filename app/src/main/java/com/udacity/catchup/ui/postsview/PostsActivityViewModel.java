@@ -22,6 +22,10 @@ class PostsActivityViewModel extends ViewModel {
         return posts;
     }
 
+    LiveData<Post> getPost(String id) {
+        return repository.getPost(id);
+    }
+
     void fetchPosts() {
         repository.fetchPosts();
     }

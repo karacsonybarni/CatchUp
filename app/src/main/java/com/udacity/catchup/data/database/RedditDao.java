@@ -19,6 +19,9 @@ public abstract class RedditDao {
     @Query("SELECT * FROM post")
     public abstract LiveData<List<Post>> getPosts();
 
+    @Query("SELECT * FROM post WHERE id = :id")
+    public abstract LiveData<Post> getPost(String id);
+
     @Transaction
     public void updatePosts(List<Post> posts) {
         deleteAllPosts();
