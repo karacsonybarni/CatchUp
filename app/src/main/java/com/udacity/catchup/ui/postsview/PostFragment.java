@@ -1,5 +1,7 @@
 package com.udacity.catchup.ui.postsview;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
@@ -32,6 +35,7 @@ public class PostFragment extends Fragment {
     private TextView subredditName;
     private TextView postDetails;
     private TextView title;
+    private TextView bodyText;
     private ImageView image;
 
     @Nullable
@@ -54,6 +58,7 @@ public class PostFragment extends Fragment {
         subredditName = rootView.findViewById(R.id.subredditName);
         postDetails = rootView.findViewById(R.id.postDetails);
         title = rootView.findViewById(R.id.title);
+        bodyText = rootView.findViewById(R.id.bodyText);
         image = rootView.findViewById(R.id.image);
     }
 
@@ -87,7 +92,7 @@ public class PostFragment extends Fragment {
         subredditName.setText(post.getSubredditName());
         postDetails.setText(getPostDetails());
         title.setText(post.getTitle());
-        addImageIfIncluded();
+        addMedia();
     }
 
     private String getPostDetails() {
@@ -102,11 +107,29 @@ public class PostFragment extends Fragment {
         return String.valueOf(timeAgo);
     }
 
-    private void addImageIfIncluded() {
+    private void addMedia() {
         if (hasImage()) {
-            image.setVisibility(View.VISIBLE);
-            Picasso.get().load(post.getMediaUrl()).into(image);
+            loadImage();
+        } else {
+            addLink();
         }
+    }
+
+    private void loadImage() {
+        image.setVisibility(View.VISIBLE);
+        Picasso.get().load(post.getMediaUrl()).into(image);
+    }
+
+    private void addLink() {
+        bodyText.setText(post.getMediaUrl());
+        bodyText.setOnClickListener(this::openLink);
+        bodyText.setTextColor(ContextCompat.getColor(getNonNullActivity(), R.color.colorAccent));
+        bodyText.setVisibility(View.VISIBLE);
+    }
+
+    private void openLink(@SuppressWarnings("unused") View linkView) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(post.getMediaUrl()));
+        startActivity(browserIntent);
     }
 
     private boolean hasImage() {
