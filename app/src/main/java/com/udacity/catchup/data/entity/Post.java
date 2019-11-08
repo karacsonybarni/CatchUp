@@ -1,9 +1,11 @@
 package com.udacity.catchup.data.entity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -46,6 +48,11 @@ public class Post {
 
     @SerializedName("url")
     private String mediaUrl;
+
+    @Ignore
+    private Media media;
+
+    private String videoUrl;
 
     @NonNull
     public String getId() {
@@ -123,5 +130,26 @@ public class Post {
 
     public void setMediaUrl(String mediaUrl) {
         this.mediaUrl = mediaUrl;
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
+    }
+
+    @Nullable
+    public String getVideoUrl() {
+        if (videoUrl == null) {
+            RedditVideo redditVideo = media != null ? media.getRedditVideo() : null;
+            videoUrl = redditVideo != null ? redditVideo.getUrl() : null;
+        }
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }
