@@ -11,7 +11,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.Post;
-import com.udacity.catchup.data.network.RedditNetworkDataSource;
 import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;
@@ -20,6 +19,7 @@ public class PostsActivity extends AppCompatActivity {
 
     private PostsActivityViewModel viewModel;
     private PostPagerAdapter adapter;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,21 @@ public class PostsActivity extends AppCompatActivity {
 
     private void initViewPager() {
         adapter = new PostPagerAdapter(getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(newOnPageChangeListener());
+    }
+
+    private ViewPager.OnPageChangeListener newOnPageChangeListener() {
+        return new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                PostFragment currentFragment = adapter.getCurrentFragment();
+                if (currentFragment != null && currentFragment.hasVideo()) {
+                    currentFragment.playVideo();
+                }
+            }
+        };
     }
 
     private PostsActivityViewModel getViewModel() {

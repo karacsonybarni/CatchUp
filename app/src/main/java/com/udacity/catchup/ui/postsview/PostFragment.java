@@ -1,5 +1,6 @@
 package com.udacity.catchup.ui.postsview;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,9 +19,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.ui.MediaProvider;
 
 import java.util.Objects;
 
@@ -30,6 +34,7 @@ public class PostFragment extends Fragment {
 
     private LiveData<Post> postLiveData;
     private Post post;
+    private String validVideoUrl;
 
     private View rootView;
     private TextView subredditName;
@@ -37,6 +42,7 @@ public class PostFragment extends Fragment {
     private TextView title;
     private TextView bodyText;
     private ImageView image;
+    private PlayerView playerView;
 
     @Nullable
     @Override
@@ -60,6 +66,7 @@ public class PostFragment extends Fragment {
         title = rootView.findViewById(R.id.title);
         bodyText = rootView.findViewById(R.id.bodyText);
         image = rootView.findViewById(R.id.image);
+        playerView = rootView.findViewById(R.id.playerView);
     }
 
     private void populateViews(Bundle savedInstanceState) {
@@ -108,16 +115,34 @@ public class PostFragment extends Fragment {
     }
 
     private void addMedia() {
-        if (hasImage()) {
+        if (hasType("image")) {
             loadImage();
+        } else if (hasVideo()) {
+            loadVideo();
         } else {
             addLink();
         }
     }
 
+    private boolean hasType(String type) {
+        String postType = post.getType();
+        return postType != null && postType.contains(type);
+    }
+
     private void loadImage() {
         image.setVisibility(View.VISIBLE);
         Picasso.get().load(post.getMediaUrl()).into(image);
+    }
+
+    boolean hasVideo() {
+        return hasType("video");
+    }
+
+    private void loadVideo() {
+        playerView.setVisibility(View.VISIBLE);
+        String videoUrl = post.getVideoUrl();
+        validVideoUrl = videoUrl != null ? videoUrl : post.getMediaUrl();
+        MediaProvider.initVideo(playerView, validVideoUrl);
     }
 
     private void addLink() {
@@ -132,13 +157,33 @@ public class PostFragment extends Fragment {
         startActivity(browserIntent);
     }
 
-    private boolean hasImage() {
-        String type = post.getType();
-        return type != null && type.contains("image");
-    }
-
     void setPost(Post post) {
         this.post = post;
+    }
+
+    void playVideo() {
+        MediaProvider.playVideo(validVideoUrl);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23 && isFinishing()) {
+            MediaProvider.close();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23 && isFinishing()) {
+            MediaProvider.close();
+        }
+    }
+
+    private boolean isFinishing() {
+        Activity activity = getActivity();
+        return activity == null || activity.isFinishing();
     }
 
     @Override

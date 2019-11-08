@@ -1,5 +1,7 @@
 package com.udacity.catchup.ui.postsview;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,6 +14,7 @@ import java.util.List;
 class PostPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Post> posts;
+    private PostFragment currentFragment;
 
     PostPagerAdapter(@NonNull FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -38,5 +41,16 @@ class PostPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition(@NonNull Object object) {
         return POSITION_NONE;
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        currentFragment = (PostFragment) super.instantiateItem(container, position);
+        return currentFragment;
+    }
+
+    PostFragment getCurrentFragment() {
+        return currentFragment;
     }
 }
