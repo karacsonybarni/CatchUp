@@ -131,7 +131,12 @@ public class PostFragment extends Fragment {
 
     private void loadImage() {
         image.setVisibility(View.VISIBLE);
-        Picasso.get().load(post.getMediaUrl()).into(image);
+        Picasso
+                .get()
+                .load(post.getMediaUrl())
+                .resize(2048, 1600)
+                .onlyScaleDown()
+                .into(image);
     }
 
     boolean hasVideo() {
