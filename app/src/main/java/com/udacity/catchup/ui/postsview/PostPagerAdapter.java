@@ -14,10 +14,12 @@ import java.util.List;
 class PostPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Post> posts;
-    private PostFragment currentFragment;
+    private PostFragment currentPage;
+    private PostsActivityViewModel viewModel;
 
-    PostPagerAdapter(@NonNull FragmentManager fm) {
+    PostPagerAdapter(@NonNull FragmentManager fm, PostsActivityViewModel viewModel) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.viewModel = viewModel;
     }
 
     @NonNull
@@ -46,11 +48,12 @@ class PostPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        currentFragment = (PostFragment) super.instantiateItem(container, position);
-        return currentFragment;
+        currentPage = (PostFragment) super.instantiateItem(container, position);
+        viewModel.setSeen(posts.get(position));
+        return currentPage;
     }
 
-    PostFragment getCurrentFragment() {
-        return currentFragment;
+    PostFragment getCurrentPage() {
+        return currentPage;
     }
 }

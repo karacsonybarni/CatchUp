@@ -16,7 +16,7 @@ import java.util.List;
 @Dao
 public abstract class RedditDao {
 
-    @Query("SELECT * FROM post")
+    @Query("SELECT * FROM post ORDER BY `order`")
     public abstract LiveData<List<Post>> getPosts();
 
     @Query("SELECT * FROM post WHERE id = :id")
@@ -25,14 +25,17 @@ public abstract class RedditDao {
     @Transaction
     public void updatePosts(List<Post> posts) {
         deleteAllPosts();
-        bulkInsert(posts);
+        bulkInsertPosts(posts);
     }
 
     @Query("DELETE FROM post")
     abstract void deleteAllPosts();
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract void bulkInsertPosts(List<Post> posts);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract void bulkInsert(List<Post> posts);
+    public abstract void insertPost(Post post);
 
     @Query("SELECT * FROM subreddit")
     public abstract LiveData<List<Subreddit>> getSubreddits();

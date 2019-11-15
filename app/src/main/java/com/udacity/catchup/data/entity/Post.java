@@ -54,6 +54,10 @@ public class Post {
 
     private String videoUrl;
 
+    private boolean isSeen;
+
+    private long order;
+
     @NonNull
     public String getId() {
         return id;
@@ -151,5 +155,21 @@ public class Post {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public boolean isSeen() {
+        return isSeen;
+    }
+
+    public void setSeen(boolean seen) {
+        isSeen = seen;
+    }
+
+    public long getOrder() {
+        return order;
+    }
+
+    public void setOrder(long order) {
+        this.order = order;
     }
 }

@@ -77,6 +77,10 @@ public class Repository {
         return redditDao.getPost(id);
     }
 
+    public void updatePost(Post post) {
+        diskIO.execute(() -> redditDao.insertPost(post));
+    }
+
     public LiveData<List<Subreddit>> getSubreddits() {
         return subreddits;
     }
