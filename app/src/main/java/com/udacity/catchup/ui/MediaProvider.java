@@ -132,6 +132,7 @@ public class MediaProvider {
 
     public static void close() {
         getInstance().closePool();
+        INSTANCE = null;
     }
 
     private void closePool() {
@@ -144,5 +145,6 @@ public class MediaProvider {
             exoPlayer.release();
         }
         map = null;
+        urls = null;
     }
 }
