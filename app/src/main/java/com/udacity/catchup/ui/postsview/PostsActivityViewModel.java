@@ -40,7 +40,7 @@ class PostsActivityViewModel extends ViewModel {
     void setSeen(Post post) {
         if (!post.isSeen()) {
             post.setSeen(true);
-            post.setOrder(post.getOrder() - 1);
+            post.setOrder(post.getOrder() / 10);
             repository.updatePost(post);
         }
     }

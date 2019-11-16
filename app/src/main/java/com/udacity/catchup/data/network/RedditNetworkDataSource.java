@@ -29,7 +29,6 @@ public class RedditNetworkDataSource {
     private List<String> subreddits;
     private List<Post> postsToStore;
     private int numOfSubredditsFetched;
-    private long order;
 
     private RedditNetworkDataSource(Context context) {
         postsLiveData = new MutableLiveData<>();
@@ -58,7 +57,6 @@ public class RedditNetworkDataSource {
         this.subreddits = subreddits;
         postsToStore = new ArrayList<>();
         numOfSubredditsFetched = 0;
-        order = System.currentTimeMillis();
         for (String subreddit : subreddits) {
             fetchPosts(subreddit);
         }
@@ -68,7 +66,7 @@ public class RedditNetworkDataSource {
         redditService.getPosts(subreddit).enqueue(new Callback<Feed>() {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
-                List<Post> posts = TypeConverter.toPosts(response.body(), order);
+                List<Post> posts = TypeConverter.toPosts(response.body());
                 if (posts != null) {
                     postsToStore.addAll(posts);
                 }

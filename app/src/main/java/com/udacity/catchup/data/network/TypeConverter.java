@@ -14,7 +14,7 @@ class TypeConverter {
     private static final int SECOND = 1000;
 
     @Nullable
-    static List<Post> toPosts(Feed feed, long order) {
+    static List<Post> toPosts(Feed feed) {
         List<FeedDataElem> feedElems = feed != null ? feed.getData().getChildren() : null;
         if (feedElems == null || feedElems.size() == 0) {
             return null;
@@ -22,15 +22,16 @@ class TypeConverter {
 
         List<Post> posts = new ArrayList<>();
         for (FeedDataElem feedElem : feedElems) {
-            posts.add(toPost(feedElem, order));
+            posts.add(toPost(feedElem));
         }
         return posts;
     }
 
-    private static Post toPost(FeedDataElem feedElem, long order) {
+    private static Post toPost(FeedDataElem feedElem) {
         Post post = feedElem.getPost();
-        post.setOrder(order);
-        post.setDate(post.getDate() * SECOND);
+        long date = post.getDate() * SECOND;
+        post.setDate(date);
+        post.setOrder(date);
         return post;
     }
 }
