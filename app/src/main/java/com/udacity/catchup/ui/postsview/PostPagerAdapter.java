@@ -15,11 +15,9 @@ class PostPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Post> posts;
     private PostFragment currentPage;
-    private PostsActivityViewModel viewModel;
 
-    PostPagerAdapter(@NonNull FragmentManager fm, PostsActivityViewModel viewModel) {
+    PostPagerAdapter(@NonNull FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        this.viewModel = viewModel;
     }
 
     @NonNull
@@ -49,11 +47,14 @@ class PostPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         currentPage = (PostFragment) super.instantiateItem(container, position);
-        viewModel.setSeen(posts.get(position));
         return currentPage;
     }
 
     PostFragment getCurrentPage() {
         return currentPage;
+    }
+
+    Post getPost(int position) {
+        return posts.get(position);
     }
 }

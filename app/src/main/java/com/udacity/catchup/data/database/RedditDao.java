@@ -6,7 +6,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Transaction;
 
 import com.udacity.catchup.data.entity.Post;
 import com.udacity.catchup.data.entity.Subreddit;
@@ -22,17 +21,8 @@ public abstract class RedditDao {
     @Query("SELECT * FROM post WHERE id = :id")
     public abstract LiveData<Post> getPost(String id);
 
-    @Transaction
-    public void updatePosts(List<Post> posts) {
-        deleteAllPosts();
-        bulkInsertPosts(posts);
-    }
-
-    @Query("DELETE FROM post")
-    abstract void deleteAllPosts();
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract void bulkInsertPosts(List<Post> posts);
+    public abstract void updatePosts(List<Post> posts);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertPost(Post post);

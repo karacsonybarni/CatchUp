@@ -32,7 +32,7 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     private void initViewPager() {
-        adapter = new PostPagerAdapter(getSupportFragmentManager(), viewModel);
+        adapter = new PostPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(newOnPageChangeListener());
@@ -43,11 +43,18 @@ public class PostsActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 PostFragment currentFragment = adapter.getCurrentPage();
-                if (currentFragment != null && currentFragment.hasVideo()) {
-                    currentFragment.playVideo();
+                if (currentFragment != null) {
+                    setSeen(position);
+                    if (currentFragment.hasVideo()) {
+                        currentFragment.playVideo();
+                    }
                 }
             }
         };
+    }
+
+    private void setSeen(int postPosition) {
+        viewModel.setSeen(adapter.getPost(postPosition));
     }
 
     private PostsActivityViewModel getViewModel() {
@@ -60,10 +67,16 @@ public class PostsActivity extends AppCompatActivity {
     private void updatePosts(List<Post> posts) {
         if (posts != null && posts.size() > 0) {
             adapter.updatePosts(posts);
-            viewPager.setCurrentItem(getFirstUnseenPostPosition(posts));
+            updateCurrentPage(posts);
         } else {
             showInternetErrorSnackbar();
         }
+    }
+
+    private void updateCurrentPage(List<Post> posts) {
+        int firstUnseenPostPosition = getFirstUnseenPostPosition(posts);
+        viewPager.setCurrentItem(firstUnseenPostPosition);
+        setSeen(firstUnseenPostPosition);
     }
 
     private int getFirstUnseenPostPosition(List<Post> posts) {
