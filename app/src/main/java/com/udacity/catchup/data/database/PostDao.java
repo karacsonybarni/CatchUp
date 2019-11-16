@@ -13,26 +13,17 @@ import com.udacity.catchup.data.entity.Subreddit;
 import java.util.List;
 
 @Dao
-public abstract class RedditDao {
+public abstract class PostDao {
 
     @Query("SELECT * FROM post ORDER BY `order`")
-    public abstract LiveData<List<Post>> getPosts();
+    public abstract LiveData<List<Post>> getAll();
 
     @Query("SELECT * FROM post WHERE id = :id")
-    public abstract LiveData<Post> getPost(String id);
+    public abstract LiveData<Post> get(String id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    public abstract void updatePosts(List<Post> posts);
+    public abstract void insert(List<Post> posts);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public abstract void insertPost(Post post);
-
-    @Query("SELECT * FROM subreddit")
-    public abstract LiveData<List<Subreddit>> getSubreddits();
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    public abstract void insertSubreddit(Subreddit subreddit);
-
-    @Delete
-    public abstract void removeSubreddit(Subreddit subreddit);
+    public abstract void insert(Post post);
 }

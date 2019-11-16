@@ -31,5 +31,7 @@ public abstract class Database extends RoomDatabase{
                 .fallbackToDestructiveMigration();
     }
 
-    public abstract RedditDao postDao();
+    public abstract PostDao postDao();
+
+    public abstract SubredditDao subredditDao();
 }

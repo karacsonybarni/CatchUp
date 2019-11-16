@@ -3,7 +3,8 @@ package com.udacity.catchup.data;
 import androidx.lifecycle.LiveData;
 
 import com.udacity.catchup.data.database.Database;
-import com.udacity.catchup.data.database.RedditDao;
+import com.udacity.catchup.data.database.PostDao;
+import com.udacity.catchup.data.database.SubredditDao;
 import com.udacity.catchup.data.entity.Post;
 import com.udacity.catchup.data.entity.Subreddit;
 import com.udacity.catchup.data.network.RedditNetworkDataSource;
@@ -15,7 +16,8 @@ import java.util.concurrent.Executor;
 public class Repository {
 
     private static Repository sInstance;
-    private RedditDao redditDao;
+    private PostDao postDao;
+    private SubredditDao subredditDao;
     private RedditNetworkDataSource redditNetworkDataSource;
     private Executor diskIO;
     private LiveData<List<Subreddit>> subreddits;
@@ -27,11 +29,12 @@ public class Repository {
             Database database,
             RedditNetworkDataSource redditNetworkDataSource,
             Executor diskIO) {
-        redditDao = database.postDao();
+        postDao = database.postDao();
+        subredditDao = database.subredditDao();
         this.redditNetworkDataSource = redditNetworkDataSource;
         this.diskIO = diskIO;
-        subreddits = redditDao.getSubreddits();
-        posts = redditDao.getPosts();
+        subreddits = subredditDao.getAll();
+        posts = postDao.getAll();
 
         initObservers();
     }
@@ -43,7 +46,7 @@ public class Repository {
 
     private void storePosts(List<Post> posts) {
         if (posts != null && !posts.isEmpty()) {
-            diskIO.execute(() -> redditDao.updatePosts(posts));
+            diskIO.execute(() -> postDao.insert(posts));
         }
     }
 
@@ -74,11 +77,11 @@ public class Repository {
     }
 
     public LiveData<Post> getPost(String id) {
-        return redditDao.getPost(id);
+        return postDao.get(id);
     }
 
     public void updatePost(Post post) {
-        diskIO.execute(() -> redditDao.insertPost(post));
+        diskIO.execute(() -> postDao.insert(post));
     }
 
     public LiveData<List<Subreddit>> getSubreddits() {
@@ -89,11 +92,11 @@ public class Repository {
         diskIO.execute(() -> {
             Subreddit subreddit = new Subreddit();
             subreddit.setName(subredditName);
-            redditDao.insertSubreddit(subreddit);
+            subredditDao.insert(subreddit);
         });
     }
 
     public void removeSubreddit(Subreddit subreddit) {
-        diskIO.execute(() -> redditDao.removeSubreddit(subreddit));
+        diskIO.execute(() -> subredditDao.remove(subreddit));
     }
 }

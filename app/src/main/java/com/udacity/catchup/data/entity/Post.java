@@ -83,8 +83,6 @@ public class Post {
         this.subredditName = subredditName;
         if (subredditName != null) {
             subredditId = subredditName.toLowerCase();
-        } else {
-            subredditId = null;
         }
     }
 
