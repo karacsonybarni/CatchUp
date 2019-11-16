@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class MediaProvider {
 
-    private static final int MAX_POOL_SIZE = 3;
+    private static final int MAX_POOL_SIZE = 5;
 
     private static MediaProvider INSTANCE;
     private Map<String, ExoPlayer> map;
