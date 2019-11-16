@@ -81,9 +81,6 @@ public class Post {
 
     public void setSubredditName(String subredditName) {
         this.subredditName = subredditName;
-        if (subredditName != null) {
-            subredditId = subredditName.toLowerCase();
-        }
     }
 
     public String getAuthorName() {
