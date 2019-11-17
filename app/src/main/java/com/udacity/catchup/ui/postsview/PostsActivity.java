@@ -48,13 +48,16 @@ public class PostsActivity extends AppCompatActivity {
                     if (currentFragment.hasVideo()) {
                         currentFragment.playVideo();
                     }
+                    if (position >= adapter.getPosts().size() - 2) {
+                        viewModel.fetchPosts();
+                    }
                 }
             }
         };
     }
 
     private void setSeen(int postPosition) {
-        viewModel.setSeen(adapter.getPost(postPosition));
+        viewModel.setSeen(adapter.getPosts().get(postPosition));
     }
 
     private PostsActivityViewModel getViewModel() {

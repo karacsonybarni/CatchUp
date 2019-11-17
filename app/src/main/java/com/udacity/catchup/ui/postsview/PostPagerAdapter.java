@@ -54,7 +54,7 @@ class PostPagerAdapter extends FragmentStatePagerAdapter {
         return currentPage;
     }
 
-    Post getPost(int position) {
-        return posts.get(position);
+    List<Post> getPosts() {
+        return posts;
     }
 }
