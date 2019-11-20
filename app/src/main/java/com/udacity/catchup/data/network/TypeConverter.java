@@ -2,9 +2,9 @@ package com.udacity.catchup.data.network;
 
 import androidx.annotation.Nullable;
 
-import com.udacity.catchup.data.entity.Feed;
-import com.udacity.catchup.data.entity.FeedDataElem;
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Feed;
+import com.udacity.catchup.data.entity.post.FeedDataElem;
+import com.udacity.catchup.data.entity.post.Post;
 
 import java.util.ArrayList;
 import java.util.List;

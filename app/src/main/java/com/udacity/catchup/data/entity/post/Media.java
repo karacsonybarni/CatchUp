@@ -1,4 +1,4 @@
-package com.udacity.catchup.data.entity;
+package com.udacity.catchup.data.entity.post;
 
 import com.google.gson.annotations.SerializedName;
 

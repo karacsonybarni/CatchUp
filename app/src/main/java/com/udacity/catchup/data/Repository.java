@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import com.udacity.catchup.data.database.Database;
 import com.udacity.catchup.data.database.PostDao;
 import com.udacity.catchup.data.database.SubredditDao;
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.Subreddit;
 import com.udacity.catchup.data.network.RedditNetworkDataSource;
 

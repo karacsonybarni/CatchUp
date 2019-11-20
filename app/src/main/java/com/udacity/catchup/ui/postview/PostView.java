@@ -18,7 +18,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Post;
 
 public class PostView extends ConstraintLayout {
 

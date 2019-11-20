@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.udacity.catchup.data.Repository;
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Post;
 
 class DetailsActivityViewModel extends ViewModel {
 

@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Post;
 
 import java.util.List;
 

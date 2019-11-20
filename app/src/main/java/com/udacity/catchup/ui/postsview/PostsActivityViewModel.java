@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.udacity.catchup.data.Repository;
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Post;
 
 import java.util.List;
 

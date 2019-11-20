@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.Subreddit;
 
 @androidx.room.Database(entities = {Post.class, Subreddit.class}, version = 1, exportSchema = false)

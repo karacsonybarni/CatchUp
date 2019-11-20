@@ -1,4 +1,4 @@
-package com.udacity.catchup.data.entity;
+package com.udacity.catchup.data.entity.post;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +9,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
+import com.udacity.catchup.data.entity.Subreddit;
 
 import static androidx.room.ForeignKey.CASCADE;
 

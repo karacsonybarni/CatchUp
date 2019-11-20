@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.snackbar.Snackbar;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;

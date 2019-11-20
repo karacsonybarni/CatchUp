@@ -15,7 +15,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.udacity.catchup.R;
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.ui.detailsview.DetailsActivity;
 import com.udacity.catchup.ui.postview.PostView;
 

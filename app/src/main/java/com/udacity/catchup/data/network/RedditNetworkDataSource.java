@@ -6,8 +6,10 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.catchup.R;
-import com.udacity.catchup.data.entity.Feed;
-import com.udacity.catchup.data.entity.Post;
+import com.udacity.catchup.data.entity.comment.CommentsData;
+import com.udacity.catchup.data.entity.comment.PageSection;
+import com.udacity.catchup.data.entity.post.Feed;
+import com.udacity.catchup.data.entity.post.Post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,5 +90,9 @@ public class RedditNetworkDataSource {
 
     public MutableLiveData<List<Post>> getPosts() {
         return postsLiveData;
+    }
+
+    public void fetchComments(String subreddit, String id, Callback<List<PageSection>> callback) {
+        redditService.getComments(subreddit, id).enqueue(callback);
     }
 }
