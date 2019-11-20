@@ -42,15 +42,10 @@ public class PostsActivity extends AppCompatActivity {
         return new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                PostFragment currentFragment = adapter.getCurrentPage();
-                if (currentFragment != null) {
-                    setSeen(position);
-                    if (currentFragment.hasVideo()) {
-                        currentFragment.playVideo();
-                    }
-                    if (position >= adapter.getPosts().size() - 2) {
-                        viewModel.fetchPosts();
-                    }
+                setSeen(position);
+                playVideoIfHas();
+                if (position >= adapter.getPosts().size() - 2) {
+                    viewModel.fetchPosts();
                 }
             }
         };
@@ -58,6 +53,13 @@ public class PostsActivity extends AppCompatActivity {
 
     private void setSeen(int postPosition) {
         viewModel.setSeen(adapter.getPosts().get(postPosition));
+    }
+
+    private void playVideoIfHas() {
+        PostFragment currentFragment = adapter.getCurrentPage();
+        if (currentFragment.hasVideo()) {
+            currentFragment.playVideo();
+        }
     }
 
     private PostsActivityViewModel getViewModel() {
@@ -79,7 +81,10 @@ public class PostsActivity extends AppCompatActivity {
     private void updateCurrentPage(List<Post> posts) {
         int firstUnseenPostPosition = getFirstUnseenPostPosition(posts);
         viewPager.setCurrentItem(firstUnseenPostPosition);
-        setSeen(firstUnseenPostPosition);
+        if (firstUnseenPostPosition == 0) {
+            setSeen(0);
+        }
+        playVideoIfHas();
     }
 
     private int getFirstUnseenPostPosition(List<Post> posts) {

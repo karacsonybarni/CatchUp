@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import com.udacity.catchup.data.entity.Post;
 import com.udacity.catchup.data.entity.Subreddit;
 
-@androidx.room.Database(entities = {Post.class, Subreddit.class}, version = 2, exportSchema = false)
+@androidx.room.Database(entities = {Post.class, Subreddit.class}, version = 1, exportSchema = false)
 public abstract class Database extends RoomDatabase{
 
     private static final Object LOCK = new Object();
