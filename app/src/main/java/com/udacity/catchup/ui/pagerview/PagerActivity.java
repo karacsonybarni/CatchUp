@@ -57,7 +57,7 @@ public class PagerActivity extends AppCompatActivity {
 
     private void playVideoIfHas() {
         PostFragment currentFragment = adapter.getCurrentPage();
-        if (currentFragment.hasVideo()) {
+        if (currentFragment != null && currentFragment.hasVideo()) {
             currentFragment.playVideo();
         }
     }
