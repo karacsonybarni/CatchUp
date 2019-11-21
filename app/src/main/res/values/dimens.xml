@@ -5,6 +5,7 @@
     <dimen name="subredditName_textSize">18sp</dimen>
     <dimen name="button_size">48dp</dimen>
     <dimen name="continueButton_marginBottom">32dp</dimen>
+    <dimen name="input_marginBottom">32</dimen>
 
     <dimen name="icon_size">48dp</dimen>
     <dimen name="card_margin">16dp</dimen>
