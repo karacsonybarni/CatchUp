@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -86,8 +87,19 @@ public class SubscriptionsActivity extends AppCompatActivity {
 
     private void initInputRow() {
         subredditInput = findViewById(R.id.subredditInput);
+        subredditInput.setOnEditorActionListener(getEnterKeyListener());
         Button addButton = findViewById(R.id.addSubredditButton);
         addButton.setOnClickListener(this::insertSubreddit);
+    }
+
+    private TextView.OnEditorActionListener getEnterKeyListener() {
+        return (v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                insertSubreddit(v);
+                return true;
+            }
+            return false;
+        };
     }
 
     private void insertSubreddit(@SuppressWarnings("unused") View addButton) {
