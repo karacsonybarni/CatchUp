@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="subscriptionsActivity_padding">32dp</dimen>
+    <dimen name="subscriptionsActivity_margin">32dp</dimen>
     <dimen name="subreddit_minWidth">100dp</dimen>
     <dimen name="subredditName_textSize">18sp</dimen>
     <dimen name="button_size">48dp</dimen>
+    <dimen name="continueButton_marginBottom">32dp</dimen>
 
     <dimen name="icon_size">48dp</dimen>
     <dimen name="card_margin">16dp</dimen>

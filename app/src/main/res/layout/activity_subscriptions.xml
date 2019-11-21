@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/subscriptionsActivity_padding"
     tools:context=".ui.subscriptionsview.SubscriptionsActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginStart="@dimen/subscriptionsActivity_margin"
+        android:layout_marginTop="@dimen/subscriptionsActivity_margin"
+        android:layout_marginEnd="@dimen/subscriptionsActivity_margin"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,5 +55,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/continueButton_marginBottom"
         android:text="@string/continue_button_text" />
 </LinearLayout>
