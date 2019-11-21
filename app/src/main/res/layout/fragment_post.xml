@@ -14,8 +14,7 @@
         <com.udacity.catchup.ui.postview.PostView
             android:id="@+id/post"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/postView_margin"/>
+            android:layout_height="match_parent" />
 
     </androidx.cardview.widget.CardView>
 

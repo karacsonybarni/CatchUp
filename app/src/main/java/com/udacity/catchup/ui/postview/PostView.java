@@ -50,6 +50,7 @@ public class PostView extends ConstraintLayout {
     }
 
     private void initViews() {
+        setPadding();
         LayoutInflater.from(getContext()).inflate(R.layout.layout_post, this);
         subredditName = findViewById(R.id.subredditName);
         postDetails = findViewById(R.id.postDetails);
@@ -57,6 +58,11 @@ public class PostView extends ConstraintLayout {
         bodyText = findViewById(R.id.bodyText);
         image = findViewById(R.id.image);
         playerView = findViewById(R.id.playerView);
+    }
+
+    private void setPadding() {
+        int padding = getResources().getDimensionPixelSize(R.dimen.postView_padding);
+        setPadding(padding, padding, padding, padding);
     }
 
     public void updatePost(Post post) {
