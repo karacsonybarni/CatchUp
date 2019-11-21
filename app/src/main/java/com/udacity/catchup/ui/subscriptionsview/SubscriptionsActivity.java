@@ -91,8 +91,11 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
     private void insertSubreddit(@SuppressWarnings("unused") View addButton) {
-        viewModel.insertSubreddit(subredditInput.getText().toString().trim().toLowerCase());
-        subredditInput.setText("");
+        String inputText = subredditInput.getText().toString().trim().toLowerCase();
+        if (inputText.length() > 0) {
+            viewModel.insertSubreddit(inputText);
+            subredditInput.setText("");
+        }
     }
 
     private void initContinueButton() {
