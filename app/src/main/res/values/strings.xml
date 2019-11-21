@@ -8,7 +8,7 @@
     <string name="remove_button_text">-</string>
     <string name="continue_button_text">Continue</string>
 
-    <string name="no_internet_connection">No internet connection</string>
+    <string name="no_internet_connection">Nothing to show. Check your internet connection</string>
     <string name="retry">Retry</string>
     <string name="subreddit_icon">Subreddit icon</string>
     <string name="post_details">Posted by %1$s %2$s</string>
