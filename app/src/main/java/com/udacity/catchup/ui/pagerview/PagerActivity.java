@@ -1,4 +1,4 @@
-package com.udacity.catchup.ui.postsview;
+package com.udacity.catchup.ui.pagerview;
 
 import android.os.Bundle;
 
@@ -15,10 +15,10 @@ import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;
 
-public class PostsActivity extends AppCompatActivity {
+public class PagerActivity extends AppCompatActivity {
 
-    private PostsActivityViewModel viewModel;
-    private PostPagerAdapter adapter;
+    private PagerActivityViewModel viewModel;
+    private PagerAdapter adapter;
     ViewPager viewPager;
 
     @Override
@@ -32,7 +32,7 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     private void initViewPager() {
-        adapter = new PostPagerAdapter(getSupportFragmentManager());
+        adapter = new PagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(newOnPageChangeListener());
@@ -62,11 +62,11 @@ public class PostsActivity extends AppCompatActivity {
         }
     }
 
-    private PostsActivityViewModel getViewModel() {
+    private PagerActivityViewModel getViewModel() {
         Repository repository = InjectorUtils.getRepository(this);
-        PostsViewModelFactory factory = new PostsViewModelFactory(repository);
+        PagerViewModelFactory factory = new PagerViewModelFactory(repository);
         ViewModelProvider viewModelProvider = ViewModelProviders.of(this, factory);
-        return viewModelProvider.get(PostsActivityViewModel.class);
+        return viewModelProvider.get(PagerActivityViewModel.class);
     }
 
     private void updatePosts(List<Post> posts) {

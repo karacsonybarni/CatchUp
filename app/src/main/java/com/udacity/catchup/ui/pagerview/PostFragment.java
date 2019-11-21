@@ -1,4 +1,4 @@
-package com.udacity.catchup.ui.postsview;
+package com.udacity.catchup.ui.pagerview;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,8 +62,8 @@ public class PostFragment extends Fragment {
 
     private void initPost(Bundle savedInstanceState) {
         String postId = savedInstanceState.getString(POST_ID);
-        PostsActivityViewModel viewModel =
-                ViewModelProviders.of(getNonNullActivity()).get(PostsActivityViewModel.class);
+        PagerActivityViewModel viewModel =
+                ViewModelProviders.of(getNonNullActivity()).get(PagerActivityViewModel.class);
         postLiveData = viewModel.getPost(postId);
         postLiveData.observe(this, this::populateViews);
     }

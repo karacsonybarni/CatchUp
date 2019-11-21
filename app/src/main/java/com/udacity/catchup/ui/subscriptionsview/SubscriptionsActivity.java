@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.Subreddit;
-import com.udacity.catchup.ui.postsview.PostsActivity;
+import com.udacity.catchup.ui.pagerview.PagerActivity;
 import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;
@@ -101,7 +101,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
     private void startPostsActivity(@SuppressWarnings("unused") View controllerView) {
-        Intent intent = new Intent(this, PostsActivity.class);
+        Intent intent = new Intent(this, PagerActivity.class);
         startActivity(intent);
     }
 

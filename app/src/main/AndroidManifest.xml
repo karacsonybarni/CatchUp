@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.postsview.PostsActivity" />
+        <activity android:name=".ui.pagerview.PagerActivity" />
         <activity android:name=".ui.detailsview.DetailsActivity" />
     </application>
 

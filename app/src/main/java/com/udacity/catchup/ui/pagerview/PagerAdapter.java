@@ -1,4 +1,4 @@
-package com.udacity.catchup.ui.postsview;
+package com.udacity.catchup.ui.pagerview;
 
 import android.view.ViewGroup;
 
@@ -11,12 +11,12 @@ import com.udacity.catchup.data.entity.post.Post;
 
 import java.util.List;
 
-class PostPagerAdapter extends FragmentStatePagerAdapter {
+class PagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Post> posts;
     private PostFragment currentPage;
 
-    PostPagerAdapter(@NonNull FragmentManager fm) {
+    PagerAdapter(@NonNull FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 

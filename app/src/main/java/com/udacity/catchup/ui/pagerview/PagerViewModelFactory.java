@@ -1,4 +1,4 @@
-package com.udacity.catchup.ui.postsview;
+package com.udacity.catchup.ui.pagerview;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.udacity.catchup.data.Repository;
 
-class PostsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+class PagerViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final Repository repository;
 
-    PostsViewModelFactory(Repository repository) {
+    PagerViewModelFactory(Repository repository) {
         this.repository = repository;
     }
 
@@ -18,6 +18,6 @@ class PostsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new PostsActivityViewModel(repository);
+        return (T) new PagerActivityViewModel(repository);
     }
 }

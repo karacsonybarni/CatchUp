@@ -1,4 +1,4 @@
-package com.udacity.catchup.ui.postsview;
+package com.udacity.catchup.ui.pagerview;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -9,12 +9,12 @@ import com.udacity.catchup.data.entity.post.Post;
 
 import java.util.List;
 
-class PostsActivityViewModel extends ViewModel {
+class PagerActivityViewModel extends ViewModel {
 
     private Repository repository;
     private MediatorLiveData<List<Post>> posts;
 
-    PostsActivityViewModel(Repository repository) {
+    PagerActivityViewModel(Repository repository) {
         this.repository = repository;
         posts = new MediatorLiveData<>();
         posts.addSource(repository.getPosts(), updatedPosts -> {
