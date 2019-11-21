@@ -36,7 +36,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
 
         viewModel = getViewModel();
         initViews();
-        getNonNullActionBar().setTitle(getString(R.string.subscriptions));
+        getNonNullActionBar().setTitle(getString(R.string.subreddits));
     }
 
     private SubscriptionsActivityViewModel getViewModel() {
