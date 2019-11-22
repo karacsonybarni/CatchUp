@@ -1,15 +1,15 @@
 package com.udacity.catchup.data;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
 import com.udacity.catchup.data.database.Database;
 import com.udacity.catchup.data.database.PostDao;
 import com.udacity.catchup.data.database.SubredditDao;
 import com.udacity.catchup.data.entity.post.Post;
-import com.udacity.catchup.data.entity.Subreddit;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 import com.udacity.catchup.data.network.RedditNetworkDataSource;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -20,10 +20,11 @@ public class Repository {
     private SubredditDao subredditDao;
     private RedditNetworkDataSource redditNetworkDataSource;
     private Executor diskIO;
-    private LiveData<List<Subreddit>> subreddits;
+    private MediatorLiveData<Subreddit> subredditsFromNetwork;
+    private LiveData<List<Subreddit>> subredditsFromDb;
     private LiveData<List<Post>> posts;
 
-    private List<String> lastLoadedSubredditNames;
+    private List<Subreddit> lastLoadedSubreddits;
 
     private Repository(
             Database database,
@@ -33,33 +34,43 @@ public class Repository {
         subredditDao = database.subredditDao();
         this.redditNetworkDataSource = redditNetworkDataSource;
         this.diskIO = diskIO;
-        subreddits = subredditDao.getAll();
+        subredditsFromDb = subredditDao.getAll();
+        subredditsFromNetwork = new MediatorLiveData<>();
         posts = postDao.getAll();
 
         initObservers();
     }
 
     private void initObservers() {
+        subredditsFromDb.observeForever(this::fetchPosts);
+        subredditsFromNetwork
+                .addSource(
+                        redditNetworkDataSource.getSubreddits(),
+                        this::storeSubredditsIfSizeDiffers);
         redditNetworkDataSource.getPosts().observeForever(this::storePosts);
-        subreddits.observeForever(this::fetchPosts);
+    }
+
+    private void fetchPosts(List<Subreddit> subreddits) {
+        lastLoadedSubreddits = subreddits;
+        fetchPosts();
+    }
+
+    public void fetchPosts() {
+        redditNetworkDataSource.fetchSubredditsAndPosts(lastLoadedSubreddits);
+    }
+
+    private void storeSubredditsIfSizeDiffers(List<Subreddit> subredditsFromNetwork) {
+        if (lastLoadedSubreddits != null && subredditsFromNetwork != null
+                && lastLoadedSubreddits.size() != subredditsFromNetwork.size()
+                && !subredditsFromNetwork.isEmpty()) {
+            diskIO.execute(() -> subredditDao.insert(subredditsFromNetwork));
+        }
     }
 
     private void storePosts(List<Post> posts) {
         if (posts != null && !posts.isEmpty()) {
             diskIO.execute(() -> postDao.insert(posts));
         }
-    }
-
-    private void fetchPosts(List<Subreddit> subreddits) {
-        lastLoadedSubredditNames = new ArrayList<>();
-        for (Subreddit subreddit : subreddits) {
-            lastLoadedSubredditNames.add(subreddit.getName());
-        }
-        fetchPosts();
-    }
-
-    public void fetchPosts() {
-        redditNetworkDataSource.fetchSubreddits(lastLoadedSubredditNames);
     }
 
     public static Repository getInstance(
@@ -70,6 +81,10 @@ public class Repository {
             sInstance = new Repository(database, redditNetworkDataSource, diskIO);
         }
         return sInstance;
+    }
+
+    public RedditNetworkDataSource getNetworkDataSource() {
+        return redditNetworkDataSource;
     }
 
     public LiveData<List<Post>> getPosts() {
@@ -85,15 +100,11 @@ public class Repository {
     }
 
     public LiveData<List<Subreddit>> getSubreddits() {
-        return subreddits;
+        return subredditsFromDb;
     }
 
-    public void insertSubreddit(String subredditName) {
-        diskIO.execute(() -> {
-            Subreddit subreddit = new Subreddit();
-            subreddit.setName(subredditName);
-            subredditDao.insert(subreddit);
-        });
+    public void insertSubreddit(Subreddit subreddit) {
+        diskIO.execute(() -> subredditDao.insert(subreddit));
     }
 
     public void removeSubreddit(Subreddit subreddit) {

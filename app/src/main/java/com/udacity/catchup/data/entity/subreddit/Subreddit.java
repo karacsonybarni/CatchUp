@@ -1,8 +1,10 @@
-package com.udacity.catchup.data.entity;
+package com.udacity.catchup.data.entity.subreddit;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
 
 @Entity
 public class Subreddit {
@@ -10,7 +12,10 @@ public class Subreddit {
     @SuppressWarnings("NullableProblems")
     @NonNull
     @PrimaryKey
+    @SerializedName("display_name")
     private String name;
+
+    @SerializedName("icon_img")
     private String iconUrl;
 
     @NonNull

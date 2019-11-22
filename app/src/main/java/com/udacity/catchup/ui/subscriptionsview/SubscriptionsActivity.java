@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
-import com.udacity.catchup.data.entity.Subreddit;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 import com.udacity.catchup.ui.pagerview.PagerActivity;
 import com.udacity.catchup.util.InjectorUtils;
 
@@ -105,8 +105,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
     private void insertSubreddit(@SuppressWarnings("unused") View addButton) {
         String inputText = subredditInput.getText().toString().trim().toLowerCase();
         if (inputText.length() > 0) {
-            viewModel.insertSubreddit(inputText);
-            subredditInput.setText("");
+            viewModel.insertSubredditIfValid(subredditInput);
         }
     }
 

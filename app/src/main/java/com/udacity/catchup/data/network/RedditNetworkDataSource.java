@@ -1,39 +1,32 @@
 package com.udacity.catchup.data.network;
 
 import android.content.Context;
-import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.catchup.R;
-import com.udacity.catchup.data.entity.comment.CommentsData;
 import com.udacity.catchup.data.entity.comment.PageSection;
-import com.udacity.catchup.data.entity.post.Feed;
 import com.udacity.catchup.data.entity.post.Post;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
+import com.udacity.catchup.data.entity.subreddit.SubredditWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RedditNetworkDataSource {
 
-    private static final String LOG_TAG = RedditNetworkDataSource.class.getSimpleName();
-
     private static RedditNetworkDataSource sInstance;
-    private MutableLiveData<List<Post>> postsLiveData;
     private RedditService redditService;
-
-    private List<String> subreddits;
-    private List<Post> postsToStore;
-    private int numOfSubredditsFetched;
+    private MutableLiveData<List<Subreddit>> subreddits;
+    private MutableLiveData<List<Post>> posts;
 
     private RedditNetworkDataSource(Context context) {
-        postsLiveData = new MutableLiveData<>();
+        subreddits = new MutableLiveData<>();
+        posts = new MutableLiveData<>();
         initRetrofit(context);
     }
 
@@ -55,41 +48,32 @@ public class RedditNetworkDataSource {
         return sInstance;
     }
 
-    public void fetchSubreddits(List<String> subreddits) {
-        this.subreddits = subreddits;
-        postsToStore = new ArrayList<>();
-        numOfSubredditsFetched = 0;
-        for (String subreddit : subreddits) {
-            fetchPosts(subreddit);
-        }
+    public LiveData<List<Subreddit>> getSubreddits() {
+        return subreddits;
     }
 
-    private void fetchPosts(String subreddit) {
-        redditService.getPosts(subreddit).enqueue(new Callback<Feed>() {
-            @Override
-            public void onResponse(Call<Feed> call, Response<Feed> response) {
-                List<Post> posts = TypeConverter.toPosts(response.body());
-                if (posts != null) {
-                    postsToStore.addAll(posts);
-                }
-                numOfSubredditsFetched++;
-                if (numOfSubredditsFetched >= subreddits.size()) {
-                    postsLiveData.postValue(postsToStore);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Feed> call, Throwable t) {
-                String message = t.getLocalizedMessage();
-                if (message != null) {
-                    Log.e(LOG_TAG, message);
-                }
-            }
-        });
+    public LiveData<List<Post>> getPosts() {
+        return posts;
     }
 
-    public MutableLiveData<List<Post>> getPosts() {
-        return postsLiveData;
+    public void fetchSubredditsAndPosts(List<Subreddit> subreddits) {
+        new SubredditFetcher(this).fetchSubreddits(subreddits);
+    }
+
+    RedditService getRedditService() {
+        return redditService;
+    }
+
+    void updateSubreddits(List<Subreddit> subreddits) {
+        this.subreddits.postValue(subreddits);
+    }
+
+    void updatePosts(List<Post> posts) {
+        this.posts.postValue(posts);
+    }
+
+    public void fetchSubreddit(String subredditName, Callback<SubredditWrapper> callback) {
+        redditService.getSubreddit(subredditName).enqueue(callback);
     }
 
     public void fetchComments(String subreddit, String id, Callback<List<PageSection>> callback) {

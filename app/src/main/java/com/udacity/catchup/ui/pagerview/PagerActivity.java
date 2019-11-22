@@ -99,7 +99,7 @@ public class PagerActivity extends AppCompatActivity {
         Snackbar
                 .make(
                         findViewById(R.id.viewPager),
-                        getString(R.string.no_internet_connection),
+                        getString(R.string.nothing_to_show),
                         Snackbar.LENGTH_LONG)
                 .setAction(
                         getString(R.string.retry),

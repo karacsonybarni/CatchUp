@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.udacity.catchup.data.entity.Subreddit;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 
 import java.util.List;
 
@@ -16,6 +16,9 @@ public interface SubredditDao {
 
     @Query("SELECT * FROM subreddit")
     LiveData<List<Subreddit>> getAll();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<Subreddit> subreddit);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Subreddit subreddit);

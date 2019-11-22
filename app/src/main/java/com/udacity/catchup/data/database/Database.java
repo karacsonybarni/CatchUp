@@ -6,7 +6,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.udacity.catchup.data.entity.post.Post;
-import com.udacity.catchup.data.entity.Subreddit;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 
 @androidx.room.Database(entities = {Post.class, Subreddit.class}, version = 1, exportSchema = false)
 public abstract class Database extends RoomDatabase{

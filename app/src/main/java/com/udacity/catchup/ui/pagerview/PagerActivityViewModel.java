@@ -17,12 +17,14 @@ class PagerActivityViewModel extends ViewModel {
     PagerActivityViewModel(Repository repository) {
         this.repository = repository;
         posts = new MediatorLiveData<>();
-        posts.addSource(repository.getPosts(), updatedPosts -> {
-            List<Post> oldPosts = posts.getValue();
-            if (oldPosts == null || oldPosts.size() != updatedPosts.size()) {
-                posts.postValue(updatedPosts);
-            }
-        });
+        posts.addSource(repository.getPosts(), this::updatePostsIfSizeDiffers);
+    }
+
+    private void updatePostsIfSizeDiffers(List<Post> postsFromDb) {
+        List<Post> oldPosts = this.posts.getValue();
+        if (oldPosts == null || oldPosts.size() != postsFromDb.size()) {
+            posts.postValue(postsFromDb);
+        }
     }
 
     LiveData<List<Post>> getPosts() {

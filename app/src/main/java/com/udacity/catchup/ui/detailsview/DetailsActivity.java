@@ -69,7 +69,7 @@ public class DetailsActivity extends AppCompatActivity {
         RedditNetworkDataSource
                 .getInstance(this)
                 .fetchComments(
-                        post.getSubredditId(),
+                        post.getSubredditName(),
                         post.getId(),
                         new Callback<List<PageSection>>() {
                             @Override

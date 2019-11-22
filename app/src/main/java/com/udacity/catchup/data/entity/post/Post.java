@@ -9,7 +9,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
-import com.udacity.catchup.data.entity.Subreddit;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -18,7 +18,7 @@ import static androidx.room.ForeignKey.CASCADE;
         @ForeignKey(
                 entity = Subreddit.class,
                 parentColumns = "name",
-                childColumns = "subredditId",
+                childColumns = "subredditName",
                 onDelete = CASCADE))
 public class Post {
 
@@ -27,10 +27,8 @@ public class Post {
     @PrimaryKey
     private String id;
 
-    @ColumnInfo(index = true)
-    private String subredditId;
-
     @SerializedName("subreddit")
+    @ColumnInfo(index = true)
     private String subredditName;
 
     @SerializedName("author")
@@ -66,14 +64,6 @@ public class Post {
 
     public void setId(@NonNull String id) {
         this.id = id;
-    }
-
-    public String getSubredditId() {
-        return subredditId;
-    }
-
-    public void setSubredditId(String subredditId) {
-        this.subredditId = subredditId;
     }
 
     public String getSubredditName() {

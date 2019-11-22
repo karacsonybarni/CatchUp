@@ -29,7 +29,6 @@ class TypeConverter {
 
     private static Post toPost(FeedDataElem feedElem) {
         Post post = feedElem.getPost();
-        post.setSubredditId(post.getSubredditName().toLowerCase());
         long date = post.getDate() * SECOND;
         post.setDate(date);
         post.setOrder(date);
