@@ -103,7 +103,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
     private void insertSubreddit(@SuppressWarnings("unused") View addButton) {
-        String inputText = subredditInput.getText().toString().trim().toLowerCase();
+        String inputText = subredditInput.getText().toString().trim();
         if (inputText.length() > 0) {
             viewModel.insertSubredditIfValid(subredditInput);
         }

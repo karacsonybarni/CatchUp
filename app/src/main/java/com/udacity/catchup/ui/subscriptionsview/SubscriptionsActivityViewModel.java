@@ -28,7 +28,7 @@ class SubscriptionsActivityViewModel extends ViewModel {
     }
 
     void insertSubredditIfValid(EditText subredditInput) {
-        String subredditName = subredditInput.getText().toString();
+        String subredditName = subredditInput.getText().toString().trim();
         networkDataSource
                 .fetchSubreddit(
                         subredditName,

@@ -26,6 +26,7 @@ public class PostView extends ConstraintLayout {
     private boolean shouldUseNewVideoPlayerInstance;
 
     private TextView subredditName;
+    private ImageView subredditIcon;
     private TextView postDetails;
     private TextView title;
     private TextView bodyText;
@@ -53,6 +54,7 @@ public class PostView extends ConstraintLayout {
         setPadding();
         LayoutInflater.from(getContext()).inflate(R.layout.layout_post, this);
         subredditName = findViewById(R.id.subredditName);
+        subredditIcon = findViewById(R.id.subredditIcon);
         postDetails = findViewById(R.id.postDetails);
         title = findViewById(R.id.title);
         bodyText = findViewById(R.id.bodyText);
@@ -71,10 +73,20 @@ public class PostView extends ConstraintLayout {
     }
 
     private void populateViews() {
+        loadSubredditIcon();
         subredditName.setText(post.getSubredditName());
         postDetails.setText(getPostDetails());
         title.setText(post.getTitle());
         addMedia();
+    }
+
+    private void loadSubredditIcon() {
+        Picasso
+                .get()
+                .load(post.getSubreddit().getIconUrl())
+                .resize(2048, 1600)
+                .onlyScaleDown()
+                .into(subredditIcon);
     }
 
     private String getPostDetails() {
