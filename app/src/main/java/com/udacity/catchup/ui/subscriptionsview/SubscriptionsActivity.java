@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
+import com.udacity.catchup.ui.CircleImageView;
 import com.udacity.catchup.ui.pagerview.PagerActivity;
 import com.udacity.catchup.util.InjectorUtils;
 
@@ -82,7 +83,13 @@ public class SubscriptionsActivity extends AppCompatActivity {
         subredditName.setText(subreddit.getName());
         Button removeButton = subredditItem.findViewById(R.id.removeButton);
         removeButton.setOnClickListener(v -> viewModel.removeSubreddit(subreddit));
+        loadIcon(subredditItem, subreddit.getIconUrl());
         subredditsView.addView(subredditItem);
+    }
+
+    private void loadIcon(View subredditItem, String iconUrl) {
+        CircleImageView iconView = subredditItem.findViewById(R.id.icon);
+        iconView.load(iconUrl);
     }
 
     private void initInputRow() {

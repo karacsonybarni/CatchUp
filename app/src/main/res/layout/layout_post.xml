@@ -2,30 +2,20 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/subredditIV"
+    <com.udacity.catchup.ui.CircleImageView
+        android:id="@+id/circleIV"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:elevation="0dp"
-        android:shape="oval"
-        app:cardCornerRadius="@dimen/icon_cornerRadius"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/subredditIcon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/subreddit_icon" />
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/subredditIV"
-        app:layout_constraintStart_toEndOf="@id/subredditIV"
-        app:layout_constraintTop_toTopOf="@id/subredditIV">
+        app:layout_constraintBottom_toBottomOf="@id/circleIV"
+        app:layout_constraintStart_toEndOf="@id/circleIV"
+        app:layout_constraintTop_toTopOf="@id/circleIV">
 
         <TextView
             android:id="@+id/subredditName"
@@ -55,7 +45,7 @@
         android:layout_marginTop="@dimen/icon_margin"
         android:textColor="@color/primaryText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subredditIV" />
+        app:layout_constraintTop_toBottomOf="@+id/circleIV" />
 
     <TextView
         android:id="@+id/bodyText"

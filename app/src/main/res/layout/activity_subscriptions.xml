@@ -36,14 +36,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:minWidth="@dimen/subreddit_minWidth" />
+                    android:minWidth="@dimen/subreddit_input_minWidth"
+                    android:textSize="@dimen/subredditInput_textSize" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/addSubredditButton"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="@dimen/button_size"
                     android:layout_height="@dimen/button_size"
-                    android:text="@string/add_button_text" />
+                    android:text="@string/add_button_text"
+                    android:textSize="@dimen/addRemoveButton_textSize" />
             </LinearLayout>
 
         </LinearLayout>
@@ -57,5 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/continueButton_marginBottom"
-        android:text="@string/continue_button_text" />
+        android:text="@string/continue_button_text"
+        android:textSize="@dimen/continueButton_textSize" />
 </LinearLayout>

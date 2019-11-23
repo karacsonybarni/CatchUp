@@ -4,14 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
+
+    <com.udacity.catchup.ui.CircleImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/small_icon_size"
+        android:layout_height="@dimen/small_icon_size"
+        android:layout_marginTop="@dimen/small_icon_margin"
+        android:layout_marginEnd="@dimen/icon_margin"
+        android:layout_marginRight="@dimen/icon_margin"
+        android:layout_marginBottom="@dimen/small_icon_margin" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:minWidth="@dimen/subreddit_minWidth"
+        android:minWidth="@dimen/subreddit_name_minWidth"
         android:textSize="@dimen/subredditName_textSize"
         app:fontFamily="sans-serif-medium" />
 
@@ -20,6 +30,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="@dimen/button_size"
         android:layout_height="@dimen/button_size"
-        android:text="@string/remove_button_text" />
+        android:text="@string/remove_button_text"
+        android:textSize="@dimen/addRemoveButton_textSize" />
 
 </LinearLayout>

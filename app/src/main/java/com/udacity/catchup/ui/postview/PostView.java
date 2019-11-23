@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
+import com.udacity.catchup.ui.CircleImageView;
 
 public class PostView extends ConstraintLayout {
 
@@ -27,7 +28,7 @@ public class PostView extends ConstraintLayout {
     private boolean shouldUseNewVideoPlayerInstance;
 
     private TextView subredditName;
-    private ImageView subredditIcon;
+    private CircleImageView subredditIcon;
     private TextView postDetails;
     private TextView title;
     private TextView bodyText;
@@ -55,7 +56,7 @@ public class PostView extends ConstraintLayout {
         setPadding();
         LayoutInflater.from(getContext()).inflate(R.layout.layout_post, this);
         subredditName = findViewById(R.id.subredditName);
-        subredditIcon = findViewById(R.id.subredditIcon);
+        subredditIcon = findViewById(R.id.circleIV);
         postDetails = findViewById(R.id.postDetails);
         title = findViewById(R.id.title);
         bodyText = findViewById(R.id.bodyText);
@@ -83,13 +84,9 @@ public class PostView extends ConstraintLayout {
 
     public void loadSubredditIcon() {
         Subreddit subreddit = post.getSubreddit();
-        if (subreddit == null) {
-            return;
+        if (subreddit != null) {
+            subredditIcon.load(subreddit.getIconUrl());
         }
-        Picasso
-                .get()
-                .load(subreddit.getIconUrl())
-                .into(subredditIcon);
     }
 
     private String getPostDetails() {
