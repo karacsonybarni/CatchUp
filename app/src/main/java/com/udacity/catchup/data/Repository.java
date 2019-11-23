@@ -22,7 +22,6 @@ public class Repository {
     private Executor diskIO;
     private MediatorLiveData<Subreddit> subredditsFromNetwork;
     private LiveData<List<Subreddit>> subredditsFromDb;
-    private LiveData<List<Post>> posts;
 
     private List<Subreddit> lastLoadedSubreddits;
 
@@ -36,7 +35,6 @@ public class Repository {
         this.diskIO = diskIO;
         subredditsFromDb = subredditDao.getAll();
         subredditsFromNetwork = new MediatorLiveData<>();
-        posts = postDao.getAll();
 
         initObservers();
     }
@@ -88,7 +86,7 @@ public class Repository {
     }
 
     public LiveData<List<Post>> getPosts() {
-        return posts;
+        return postDao.getAll();
     }
 
     public LiveData<Post> getPost(String id) {
