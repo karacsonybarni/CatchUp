@@ -2,36 +2,51 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/subredditIcon"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/subredditIV"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:contentDescription="@string/subreddit_icon"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:elevation="0dp"
+        android:shape="oval"
+        app:cardCornerRadius="@dimen/icon_cornerRadius"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/subredditName"
+        <ImageView
+            android:id="@+id/subredditIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/subreddit_icon" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/icon_margin"
-        android:layout_marginLeft="@dimen/icon_margin"
-        android:textColor="@color/primaryText"
-        android:textSize="@dimen/subredditNameOnCard_textSize"
-        app:fontFamily="sans-serif-medium"
-        app:layout_constraintLeft_toRightOf="@+id/subredditIcon"
-        app:layout_constraintTop_toTopOf="@+id/subredditIcon" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/subredditIV"
+        app:layout_constraintStart_toEndOf="@id/subredditIV"
+        app:layout_constraintTop_toTopOf="@id/subredditIV">
 
-    <TextView
-        android:id="@+id/postDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/icon_margin"
-        android:layout_marginLeft="@dimen/icon_margin"
-        android:textColor="@color/secondaryText"
-        android:textSize="@dimen/postDetails_textSize"
-        app:layout_constraintLeft_toRightOf="@+id/subredditIcon"
-        app:layout_constraintTop_toBottomOf="@+id/subredditName" />
+        <TextView
+            android:id="@+id/subredditName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/icon_margin"
+            android:layout_marginLeft="@dimen/icon_margin"
+            android:textColor="@color/primaryText"
+            android:textSize="@dimen/subredditNameOnCard_textSize"
+            app:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/postDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/icon_margin"
+            android:layout_marginLeft="@dimen/icon_margin"
+            android:textColor="@color/secondaryText"
+            android:textSize="@dimen/postDetails_textSize" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/title"
@@ -39,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/icon_margin"
         android:textColor="@color/primaryText"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subredditIcon" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subredditIV" />
 
     <TextView
         android:id="@+id/bodyText"
@@ -50,7 +65,7 @@
         android:gravity="center_vertical"
         android:minHeight="@dimen/tap_minSize"
         android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <ImageView
@@ -61,8 +76,8 @@
         android:contentDescription="@string/posted_image"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <com.google.android.exoplayer2.ui.PlayerView

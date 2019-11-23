@@ -8,6 +8,7 @@
     <dimen name="input_marginBottom">32dp</dimen>
 
     <dimen name="icon_size">48dp</dimen>
+    <dimen name="icon_cornerRadius">24dp</dimen>
     <dimen name="card_margin">16dp</dimen>
     <dimen name="postView_padding">16dp</dimen>
     <dimen name="icon_margin">16dp</dimen>
