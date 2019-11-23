@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.post.Post;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 import com.udacity.catchup.ui.detailsview.DetailsActivity;
 import com.udacity.catchup.ui.postview.PostView;
 
@@ -25,7 +26,9 @@ public class PostFragment extends Fragment {
 
     private static final String POST_ID = "postId";
 
+    private PagerActivityViewModel viewModel;
     private LiveData<Post> postLiveData;
+    private LiveData<Subreddit> subredditLiveData;
     private Post post;
 
     private CardView card;
@@ -62,8 +65,7 @@ public class PostFragment extends Fragment {
 
     private void initPost(Bundle savedInstanceState) {
         String postId = savedInstanceState.getString(POST_ID);
-        PagerActivityViewModel viewModel =
-                ViewModelProviders.of(getNonNullActivity()).get(PagerActivityViewModel.class);
+        viewModel = ViewModelProviders.of(getNonNullActivity()).get(PagerActivityViewModel.class);
         postLiveData = viewModel.getPost(postId);
         postLiveData.observe(this, this::populateViews);
     }
@@ -77,12 +79,25 @@ public class PostFragment extends Fragment {
         this.post = post;
         postView.updatePost(post);
         card.setOnClickListener(this::startDetailsActivity);
+        if (post.getSubreddit() == null) {
+            loadSubreddit();
+        }
     }
 
     private void startDetailsActivity(@SuppressWarnings("unused") View view) {
         Intent intent = new Intent(getNonNullActivity(), DetailsActivity.class);
         intent.putExtra(DetailsActivity.POST_ID_EXTRA, post.getId());
         startActivity(intent);
+    }
+
+    private void loadSubreddit() {
+        subredditLiveData = viewModel.getSubreddit(post.getSubredditName());
+        subredditLiveData.observe(this, this::updateSubredditInPostView);
+    }
+
+    private void updateSubredditInPostView(Subreddit subreddit) {
+        post.setSubreddit(subreddit);
+        postView.loadSubredditIcon();
     }
 
     void setPost(Post post) {
@@ -119,6 +134,9 @@ public class PostFragment extends Fragment {
     public void onDestroy() {
         if (postLiveData != null) {
             postLiveData.removeObservers(this);
+        }
+        if (subredditLiveData != null) {
+            subredditLiveData.removeObservers(this);
         }
         super.onDestroy();
     }

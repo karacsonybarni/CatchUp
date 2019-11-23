@@ -28,7 +28,7 @@ public class Post {
     private String id;
 
     @Ignore
-    private Subreddit subreddit;
+    private Subreddit subredditObj;
 
     @SerializedName("subreddit")
     @ColumnInfo(index = true)
@@ -70,11 +70,11 @@ public class Post {
     }
 
     public Subreddit getSubreddit() {
-        return subreddit;
+        return subredditObj;
     }
 
     public void setSubreddit(Subreddit subreddit) {
-        this.subreddit = subreddit;
+        subredditObj = subreddit;
     }
 
     public String getSubredditName() {

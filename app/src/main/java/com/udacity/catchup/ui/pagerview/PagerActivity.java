@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.post.Post;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class PagerActivity extends AppCompatActivity {
 
         viewModel = getViewModel();
         viewModel.getPosts().observe(this, this::updatePosts);
+        viewModel.getSubreddits().observe(this, this::updateSubreddits);
         initViewPager();
     }
 
@@ -70,7 +72,7 @@ public class PagerActivity extends AppCompatActivity {
     }
 
     private void updatePosts(List<Post> posts) {
-        if (posts != null && posts.size() > 0) {
+        if (posts != null && !posts.isEmpty()) {
             adapter.updatePosts(posts);
             updateCurrentPage(posts);
         } else {
@@ -107,9 +109,16 @@ public class PagerActivity extends AppCompatActivity {
                 .show();
     }
 
+    private void updateSubreddits(List<Subreddit> subreddits) {
+        if (subreddits != null && !subreddits.isEmpty()) {
+            adapter.updateSubreddits(subreddits);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         viewModel.getPosts().removeObservers(this);
+        viewModel.getSubreddits().removeObservers(this);
         super.onDestroy();
     }
 }

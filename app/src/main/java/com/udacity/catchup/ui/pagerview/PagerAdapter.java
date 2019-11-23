@@ -9,12 +9,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.udacity.catchup.data.entity.post.Post;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class PagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Post> posts;
+    private Map<String, Subreddit> subreddits;
     private PostFragment currentPage;
 
     PagerAdapter(@NonNull FragmentManager fm) {
@@ -36,7 +40,30 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     void updatePosts(List<Post> posts) {
         this.posts = posts;
+        updatePosts();
         notifyDataSetChanged();
+    }
+
+    private void updatePosts() {
+        if (posts == null || subreddits == null) {
+            return;
+        }
+        for (Post post : posts) {
+            post.setSubreddit(subreddits.get(post.getSubredditName()));
+        }
+    }
+
+    void updateSubreddits(List<Subreddit> subreddits) {
+        reCreateSubreddits(subreddits);
+        updatePosts();
+        notifyDataSetChanged();
+    }
+
+    private void reCreateSubreddits(List<Subreddit> subredditList) {
+        subreddits = new HashMap<>();
+        for (Subreddit subreddit : subredditList) {
+            subreddits.put(subreddit.getName(), subreddit);
+        }
     }
 
     @Override

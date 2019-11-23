@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.comment.Comment;
 import com.udacity.catchup.data.entity.post.Post;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 import com.udacity.catchup.ui.postview.PostView;
 
 import java.util.List;
@@ -32,6 +33,13 @@ class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.CommentViewHold
     void updatePost(Post post) {
         if (post != null) {
             this.post = post;
+            notifyDataSetChanged();
+        }
+    }
+
+    void updateSubreddit(Subreddit subreddit) {
+        if (subreddit != null) {
+            post.setSubreddit(subreddit);
             notifyDataSetChanged();
         }
     }

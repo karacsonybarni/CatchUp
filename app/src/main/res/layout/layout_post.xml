@@ -6,7 +6,6 @@
         android:id="@+id/subredditIcon"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:background="@color/colorAccent"
         android:contentDescription="@string/subreddit_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

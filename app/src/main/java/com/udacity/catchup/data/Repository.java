@@ -103,6 +103,10 @@ public class Repository {
         return subredditsFromDb;
     }
 
+    public LiveData<Subreddit> getSubreddit(String name) {
+        return subredditDao.getSubreddit(name);
+    }
+
     public void insertSubreddit(Subreddit subreddit) {
         diskIO.execute(() -> subredditDao.insert(subreddit));
     }

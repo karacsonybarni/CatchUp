@@ -19,6 +19,7 @@ import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.post.Post;
+import com.udacity.catchup.data.entity.subreddit.Subreddit;
 
 public class PostView extends ConstraintLayout {
 
@@ -80,12 +81,14 @@ public class PostView extends ConstraintLayout {
         addMedia();
     }
 
-    private void loadSubredditIcon() {
+    public void loadSubredditIcon() {
+        Subreddit subreddit = post.getSubreddit();
+        if (subreddit == null) {
+            return;
+        }
         Picasso
                 .get()
-                .load(post.getSubreddit().getIconUrl())
-                .resize(2048, 1600)
-                .onlyScaleDown()
+                .load(subreddit.getIconUrl())
                 .into(subredditIcon);
     }
 
