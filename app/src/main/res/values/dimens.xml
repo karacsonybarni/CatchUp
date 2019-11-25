@@ -11,7 +11,7 @@
     <dimen name="subredditName_textSize">20sp</dimen>
     <dimen name="subredditInput_textSize">@dimen/subredditName_textSize</dimen>
     <dimen name="addRemoveButton_textSize">@dimen/subredditName_textSize</dimen>
-    <dimen name="continueButton_textSize">@dimen/subredditName_textSize</dimen>
+    <dimen name="continueButton_textSize">18sp</dimen>
 
     <dimen name="icon_size">48dp</dimen>
     <dimen name="icon_cornerRadius">24dp</dimen>
