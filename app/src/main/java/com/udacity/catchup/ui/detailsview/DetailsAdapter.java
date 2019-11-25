@@ -119,14 +119,15 @@ class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.CommentViewHold
 
         private void bind(int position, int viewType) {
             if (viewType == VIEW_TYPE_POST) {
-                playVideo();
+                bindPost();
             } else {
                 bindComment(comments.get(position));
             }
         }
 
-        private void playVideo() {
+        private void bindPost() {
             PostView postView = (PostView) itemView;
+            postView.loadSubredditIcon();
             postView.playVideo();
         }
 
