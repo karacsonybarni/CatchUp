@@ -70,8 +70,6 @@ class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.CommentViewHold
     }
 
     private void initPostLayout(PostView postView) {
-        int minHeight = context.getResources().getDimensionPixelSize(R.dimen.post_minHeight);
-        postView.setMinHeight(minHeight);
         RecyclerView.LayoutParams layoutParams =
                 new RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,

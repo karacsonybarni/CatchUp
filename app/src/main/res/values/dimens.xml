@@ -13,6 +13,7 @@
     <dimen name="addRemoveButton_textSize">@dimen/subredditName_textSize</dimen>
     <dimen name="continueButton_textSize">18sp</dimen>
 
+    <dimen name="card_height">@dimen/wrap_content</dimen>
     <dimen name="icon_size">48dp</dimen>
     <dimen name="icon_cornerRadius">24dp</dimen>
     <dimen name="card_margin">16dp</dimen>
@@ -23,7 +24,6 @@
     <dimen name="title_margin">16dp</dimen>
     <dimen name="tap_minSize">48dp</dimen>
 
-    <dimen name="post_minHeight">300dp</dimen>
     <dimen name="divider_thickness">1dp</dimen>
     <dimen name="comment_marginVertical">8dp</dimen>
     <dimen name="comment_marginHorizontal">16dp</dimen>
