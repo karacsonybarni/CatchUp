@@ -29,6 +29,7 @@ public class PostView extends ConstraintLayout {
 
     private TextView subredditName;
     private CircleImageView subredditIcon;
+    private ImageView subredditIconCompat;
     private TextView postDetails;
     private TextView title;
     private TextView bodyText;
@@ -55,7 +56,7 @@ public class PostView extends ConstraintLayout {
     private void initViews() {
         LayoutInflater.from(getContext()).inflate(getLayoutResourceId(), this);
         subredditName = findViewById(R.id.subredditName);
-        subredditIcon = findViewById(R.id.circleIV);
+        initSubredditIcon();
         postDetails = findViewById(R.id.postDetails);
         title = findViewById(R.id.title);
         bodyText = findViewById(R.id.bodyText);
@@ -66,6 +67,15 @@ public class PostView extends ConstraintLayout {
 
     int getLayoutResourceId() {
         return R.layout.layout_post;
+    }
+
+    private void initSubredditIcon() {
+        View iconView = findViewById(R.id.icon);
+        if (iconView instanceof CircleImageView) {
+            subredditIcon = (CircleImageView) iconView;
+        } else {
+            subredditIconCompat = (ImageView) iconView;
+        }
     }
 
     private void setPadding() {
@@ -90,8 +100,12 @@ public class PostView extends ConstraintLayout {
 
     public void loadSubredditIcon() {
         Subreddit subreddit = post.getSubreddit();
-        if (subreddit != null && subredditIcon != null) {
-            subredditIcon.load(subreddit.getIconUrl());
+        if (subreddit != null) {
+            if (subredditIcon != null) {
+                subredditIcon.load(subreddit.getIconUrl());
+            } else if (subredditIconCompat != null) {
+                Picasso.get().load(subreddit.getIconUrl()).into(subredditIconCompat);
+            }
         }
     }
 

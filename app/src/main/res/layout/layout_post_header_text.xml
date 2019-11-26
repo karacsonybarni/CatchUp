@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/headerText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="@id/icon"
+    app:layout_constraintStart_toEndOf="@id/icon"
+    app:layout_constraintTop_toTopOf="@id/icon">
+
+    <TextView
+        android:id="@+id/subredditName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/icon_margin"
+        android:layout_marginLeft="@dimen/icon_margin"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/subredditNameOnCard_textSize"
+        app:fontFamily="sans-serif-medium" />
+
+    <TextView
+        android:id="@+id/postDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/icon_margin"
+        android:layout_marginLeft="@dimen/icon_margin"
+        android:textColor="@color/secondaryText"
+        android:textSize="@dimen/postDetails_textSize" />
+</LinearLayout>

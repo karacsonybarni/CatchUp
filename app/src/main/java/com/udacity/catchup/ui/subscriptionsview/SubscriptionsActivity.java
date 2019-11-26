@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
@@ -88,8 +90,12 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
     private void loadIcon(View subredditItem, String iconUrl) {
-        CircleImageView iconView = subredditItem.findViewById(R.id.icon);
-        iconView.load(iconUrl);
+        View iconView = subredditItem.findViewById(R.id.icon);
+        if (iconView instanceof CircleImageView) {
+            ((CircleImageView) iconView).load(iconUrl);
+        } else {
+            Picasso.get().load(iconUrl).into((ImageView) iconView);
+        }
     }
 
     private void initInputRow() {

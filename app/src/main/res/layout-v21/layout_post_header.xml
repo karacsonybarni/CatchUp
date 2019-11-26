@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.udacity.catchup.ui.CircleImageView
         android:id="@+id/icon"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:contentDescription="@string/subreddit_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
