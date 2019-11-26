@@ -54,7 +54,7 @@ public class PostView extends ConstraintLayout {
 
     private void initViews() {
         setPadding();
-        LayoutInflater.from(getContext()).inflate(R.layout.layout_post, this);
+        LayoutInflater.from(getContext()).inflate(getLayoutResourceId(), this);
         subredditName = findViewById(R.id.subredditName);
         subredditIcon = findViewById(R.id.circleIV);
         postDetails = findViewById(R.id.postDetails);
@@ -67,6 +67,10 @@ public class PostView extends ConstraintLayout {
     private void setPadding() {
         int padding = getResources().getDimensionPixelSize(R.dimen.postView_padding);
         setPadding(padding, padding, padding, padding);
+    }
+
+    int getLayoutResourceId() {
+        return R.layout.layout_post;
     }
 
     public void updatePost(Post post) {

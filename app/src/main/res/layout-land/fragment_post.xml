@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_height"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        android:clickable="true"
+        android:focusable="true">
+
+        <com.udacity.catchup.ui.postview.WidePostView
+            android:id="@+id/post"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height" />
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>
