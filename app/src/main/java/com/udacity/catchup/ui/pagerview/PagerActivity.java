@@ -1,7 +1,12 @@
 package com.udacity.catchup.ui.pagerview;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -12,6 +17,7 @@ import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
+import com.udacity.catchup.ui.subscriptionsview.SubscriptionsActivity;
 import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;
@@ -112,7 +118,29 @@ public class PagerActivity extends AppCompatActivity {
     private void updateSubreddits(List<Subreddit> subreddits) {
         if (subreddits != null && !subreddits.isEmpty()) {
             adapter.updateSubreddits(subreddits);
+        } else {
+            startSubscriptionsActivity();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_subscriptions) {
+            startSubscriptionsActivity();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void startSubscriptionsActivity() {
+        Intent intent = new Intent(this, SubscriptionsActivity.class);
+        startActivity(intent);
     }
 
     @Override
