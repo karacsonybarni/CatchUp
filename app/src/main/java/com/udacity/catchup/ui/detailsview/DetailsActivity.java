@@ -6,24 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
-import com.udacity.catchup.data.entity.comment.Comment;
-import com.udacity.catchup.data.entity.comment.PageSection;
 import com.udacity.catchup.data.entity.post.Post;
-import com.udacity.catchup.data.entity.subreddit.Subreddit;
-import com.udacity.catchup.data.network.RedditNetworkDataSource;
+import com.udacity.catchup.util.ConfigurationUtils;
 import com.udacity.catchup.util.InjectorUtils;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -31,28 +19,27 @@ public class DetailsActivity extends AppCompatActivity {
 
     private DetailsActivityViewModel viewModel;
     private LiveData<Post> postLiveData;
-    private LiveData<Subreddit> subredditLiveData;
-    private DetailsAdapter adapter;
+    private DetailsActivityDelegate delegate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initDelegate();
+        delegate.initWindow();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        initRecyclerView();
         viewModel = getViewModel(getId());
+        delegate.initViews();
         postLiveData = viewModel.getPost();
         postLiveData.observe(this, this::updatePost);
     }
 
-    private void initRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        adapter = new DetailsAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        DividerItemDecoration divider =
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(divider);
+    private void initDelegate() {
+        if (ConfigurationUtils.isInLandscapeMode(this)) {
+            delegate = new MediaDelegate(this);
+        } else {
+            delegate = new RecyclerViewDelegate(this);
+        }
     }
 
     private String getId() {
@@ -67,45 +54,17 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void updatePost(Post post) {
-        adapter.updatePost(post);
-        updateSubreddit(post.getSubredditName());
-        fetchComments(post);
+        delegate.updatePost(post);
     }
 
-    private void updateSubreddit(String subredditName) {
-        subredditLiveData = viewModel.getSubreddit(subredditName);
-        subredditLiveData.observe(this, this::updateSubreddit);
-    }
-
-    private void updateSubreddit(Subreddit subreddit) {
-        adapter.updateSubreddit(subreddit);
-    }
-
-    private void fetchComments(Post post) {
-        RedditNetworkDataSource
-                .getInstance(this)
-                .fetchComments(
-                        post.getSubredditName(),
-                        post.getId(),
-                        new Callback<List<PageSection>>() {
-                            @Override
-                            public void onResponse(Call<List<PageSection>> call,
-                                                   Response<List<PageSection>> response) {
-                                List<Comment> comments = TypeConverter.toComments(response.body());
-                                adapter.updateComments(comments);
-                            }
-
-                            @Override
-                            public void onFailure(Call<List<PageSection>> call, Throwable t) {
-
-                            }
-                        });
+    DetailsActivityViewModel getViewModel() {
+        return viewModel;
     }
 
     @Override
     protected void onDestroy() {
         postLiveData.removeObservers(this);
-        subredditLiveData.removeObservers(this);
+        delegate.close();
         super.onDestroy();
     }
 }

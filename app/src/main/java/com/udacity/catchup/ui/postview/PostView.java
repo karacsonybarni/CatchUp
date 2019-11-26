@@ -53,7 +53,6 @@ public class PostView extends ConstraintLayout {
     }
 
     private void initViews() {
-        setPadding();
         LayoutInflater.from(getContext()).inflate(getLayoutResourceId(), this);
         subredditName = findViewById(R.id.subredditName);
         subredditIcon = findViewById(R.id.circleIV);
@@ -62,15 +61,18 @@ public class PostView extends ConstraintLayout {
         bodyText = findViewById(R.id.bodyText);
         image = findViewById(R.id.image);
         playerView = findViewById(R.id.playerView);
-    }
-
-    private void setPadding() {
-        int padding = getResources().getDimensionPixelSize(R.dimen.postView_padding);
-        setPadding(padding, padding, padding, padding);
+        setPadding();
     }
 
     int getLayoutResourceId() {
         return R.layout.layout_post;
+    }
+
+    private void setPadding() {
+        if (subredditName != null) {
+            int padding = getResources().getDimensionPixelSize(R.dimen.postView_padding);
+            setPadding(padding, padding, padding, padding);
+        }
     }
 
     public void updatePost(Post post) {
@@ -80,16 +82,28 @@ public class PostView extends ConstraintLayout {
 
     private void populateViews() {
         loadSubredditIcon();
-        subredditName.setText(post.getSubredditName());
-        postDetails.setText(getPostDetails());
-        title.setText(post.getTitle());
+        fillSubredditName();
+        fillPostDetails();
+        fillTitle();
         addMedia();
     }
 
     public void loadSubredditIcon() {
         Subreddit subreddit = post.getSubreddit();
-        if (subreddit != null) {
+        if (subreddit != null && subredditIcon != null) {
             subredditIcon.load(subreddit.getIconUrl());
+        }
+    }
+
+    private void fillSubredditName() {
+        if (subredditName != null) {
+            subredditName.setText(post.getSubredditName());
+        }
+    }
+
+    private void fillPostDetails() {
+        if (postDetails != null) {
+            postDetails.setText(getPostDetails());
         }
     }
 
@@ -103,6 +117,12 @@ public class PostView extends ConstraintLayout {
         CharSequence timeAgo =
                 DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
         return String.valueOf(timeAgo);
+    }
+
+    private void fillTitle() {
+        if (title != null) {
+            title.setText(post.getTitle());
+        }
     }
 
     private void addMedia() {
