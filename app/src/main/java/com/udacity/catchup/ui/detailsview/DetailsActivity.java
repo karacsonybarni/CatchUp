@@ -23,23 +23,12 @@ public class DetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initDelegate();
-        delegate.initWindow();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
         viewModel = getViewModel(getId());
-        delegate.initViews();
         postLiveData = viewModel.getPost();
         postLiveData.observe(this, this::updatePost);
-    }
-
-    private void initDelegate() {
-        if (ConfigurationUtils.isInLandscapeMode(this)) {
-            delegate = new MediaDelegate(this);
-        } else {
-            delegate = new RecyclerViewDelegate(this);
-        }
     }
 
     private String getId() {
@@ -54,7 +43,19 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void updatePost(Post post) {
+        initDelegate(post);
+        delegate.initWindow();
+        delegate.initViews();
         delegate.updatePost(post);
+    }
+
+    private void initDelegate(Post post) {
+        boolean hasMedia = post.hasImage() || post.hasVideo();
+        if (ConfigurationUtils.isInLandscapeMode(this) && hasMedia) {
+            delegate = new MediaDelegate(this);
+        } else {
+            delegate = new RecyclerViewDelegate(this);
+        }
     }
 
     DetailsActivityViewModel getViewModel() {

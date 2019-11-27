@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/icon_margin"
         android:textColor="@color/primaryText"
-        app:layout_constraintEnd_toEndOf="@+id/headerText"
+        app:layout_constraintEnd_toStartOf="@+id/media"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
@@ -22,32 +22,33 @@
         android:gravity="center_vertical"
         android:minHeight="@dimen/tap_minSize"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/headerText"
+        app:layout_constraintEnd_toStartOf="@+id/media"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <ImageView
-        android:id="@+id/image"
+    <FrameLayout
+        android:id="@+id/media"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/card_margin"
         android:layout_marginLeft="@dimen/card_margin"
-        android:contentDescription="@string/posted_image"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/headerText"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/playerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/card_margin"
-        android:layout_marginLeft="@dimen/card_margin"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/headerText"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/posted_image"
+            android:visibility="gone" />
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </FrameLayout>
 </merge>

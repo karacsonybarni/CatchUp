@@ -105,7 +105,7 @@ public class PostFragment extends Fragment {
     }
 
     boolean hasVideo() {
-        return postView.hasVideo();
+        return post.hasVideo();
     }
 
     void playVideo() {

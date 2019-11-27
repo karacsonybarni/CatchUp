@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.udacity.catchup.ui.postview.PostView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/media"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/media_background" />
+    tools:context=".ui.detailsview.DetailsActivity">
+
+    <com.udacity.catchup.ui.postview.MediaView
+        android:id="@+id/media"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/media_background"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+</FrameLayout>

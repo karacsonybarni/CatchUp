@@ -95,7 +95,7 @@ public class PostView extends ConstraintLayout {
         fillSubredditName();
         fillPostDetails();
         fillTitle();
-        addMedia();
+        addBody();
     }
 
     public void loadSubredditIcon() {
@@ -139,23 +139,18 @@ public class PostView extends ConstraintLayout {
         }
     }
 
-    private void addMedia() {
-        if (hasType("image")) {
+    private void addBody() {
+        if (post.hasImage()) {
             loadImage();
-        } else if (hasVideo()) {
+        } else if (post.hasVideo()) {
             loadVideo();
-        } else {
+        } else if (hasLink()) {
             addLink();
         }
     }
 
-    private boolean hasType(String type) {
-        String postType = post.getType();
-        return postType != null && postType.contains(type);
-    }
-
     private void loadImage() {
-        image.setVisibility(View.VISIBLE);
+        showImage();
         Picasso
                 .get()
                 .load(post.getMediaUrl())
@@ -164,12 +159,12 @@ public class PostView extends ConstraintLayout {
                 .into(image);
     }
 
-    public boolean hasVideo() {
-        return hasType("video");
+    void showImage() {
+        image.setVisibility(View.VISIBLE);
     }
 
     private void loadVideo() {
-        playerView.setVisibility(View.VISIBLE);
+        showVideo();
         String videoUrl = post.getVideoUrl();
         validVideoUrl = videoUrl != null ? videoUrl : post.getMediaUrl();
         if (shouldUseNewVideoPlayerInstance) {
@@ -177,6 +172,15 @@ public class PostView extends ConstraintLayout {
         } else {
             MediaProvider.initVideo(playerView, validVideoUrl);
         }
+    }
+
+    void showVideo() {
+        playerView.setVisibility(View.VISIBLE);
+    }
+
+    private boolean hasLink() {
+        String mediaUrl = post.getMediaUrl();
+        return mediaUrl != null && !mediaUrl.isEmpty();
     }
 
     private void addLink() {

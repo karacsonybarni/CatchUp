@@ -169,4 +169,16 @@ public class Post {
     public void setOrder(long order) {
         this.order = order;
     }
+
+    public boolean hasImage() {
+        return hasType("image");
+    }
+
+    private boolean hasType(String type) {
+        return this.type != null && this.type.contains(type);
+    }
+
+    public boolean hasVideo() {
+        return hasType("video");
+    }
 }
