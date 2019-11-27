@@ -8,5 +8,6 @@
     <color name="secondaryText">#99000000</color>
 
     <color name="app_background">#ECEFF1</color>
+    <color name="card_background">#FFFFFF</color>
     <color name="media_background">#000000</color>
 </resources>

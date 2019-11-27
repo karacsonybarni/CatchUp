@@ -32,6 +32,7 @@ public class PostFragment extends Fragment {
     private Post post;
 
     private PostView postView;
+    private View textTransitioner;
 
     @Nullable
     @Override
@@ -52,6 +53,7 @@ public class PostFragment extends Fragment {
     private void initPostView(View rootView) {
         postView = rootView.findViewById(R.id.post);
         postView.setOnClickListener(this::startDetailsActivity);
+        textTransitioner = rootView.findViewById(R.id.textTransitioner);
     }
 
     private void startDetailsActivity(@SuppressWarnings("unused") View view) {
@@ -92,6 +94,9 @@ public class PostFragment extends Fragment {
         postView.updatePost(post);
         if (post.getSubreddit() == null) {
             loadSubreddit();
+        }
+        if (!postView.hasMedia()) {
+            textTransitioner.setVisibility(View.VISIBLE);
         }
     }
 

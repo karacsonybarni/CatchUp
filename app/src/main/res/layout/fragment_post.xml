@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,13 +11,20 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/card_margin"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        app:cardBackgroundColor="@color/card_background">
 
-        <com.udacity.catchup.ui.postview.PostView
-            android:id="@+id/post"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/card_height" />
+            android:layout_height="match_parent">
 
+            <com.udacity.catchup.ui.postview.PostView
+                android:id="@+id/post"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <include layout="@layout/text_transitioner" />
+
+        </FrameLayout>
     </androidx.cardview.widget.CardView>
-
 </FrameLayout>

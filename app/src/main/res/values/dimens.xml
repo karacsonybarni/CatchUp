@@ -23,6 +23,8 @@
     <dimen name="postDetails_textSize">12sp</dimen>
     <dimen name="title_margin">16dp</dimen>
     <dimen name="tap_minSize">48dp</dimen>
+    <dimen name="title_textSize">16sp</dimen>
+    <dimen name="textTransitioner_height">50sp</dimen>
 
     <dimen name="divider_thickness">1dp</dimen>
     <dimen name="comment_marginVertical">8dp</dimen>

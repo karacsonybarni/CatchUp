@@ -9,7 +9,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/icon_margin"
+        android:fontFamily="sans-serif-medium"
         android:textColor="@color/primaryText"
+        android:textSize="@dimen/title_textSize"
         app:layout_constraintEnd_toStartOf="@+id/media"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon" />

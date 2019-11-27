@@ -245,6 +245,10 @@ public class PostView extends ConstraintLayout {
         onClickListener = l;
     }
 
+    public boolean hasMedia() {
+        return post.hasImage() || post.hasVideo();
+    }
+
     public void onPause() {
         if (Util.SDK_INT <= 23 && isFinishing()) {
             MediaProvider.close();
