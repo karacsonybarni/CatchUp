@@ -74,7 +74,9 @@ public class PagerActivity extends AppCompatActivity {
     private void updatePosts(List<Post> posts) {
         adapter.updatePosts(posts);
         if (posts != null && !posts.isEmpty()) {
-            updateCurrentPage(posts);
+            if (isStarting) {
+                updateCurrentPage(posts);
+            }
         } else if (isStarting) {
             startSubscriptionsActivity();
         } else {
