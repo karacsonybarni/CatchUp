@@ -31,6 +31,7 @@ class MediaDelegate implements DetailsActivityDelegate {
     public void updatePost(Post post) {
         media.updatePost(post);
         if (post.hasVideo()) {
+            media.useNewVideoPlayerInstance();
             media.playVideo();
         }
     }
