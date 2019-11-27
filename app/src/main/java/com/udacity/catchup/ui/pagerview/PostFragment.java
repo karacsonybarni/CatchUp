@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.udacity.catchup.R;
@@ -65,9 +66,16 @@ public class PostFragment extends Fragment {
 
     private void initPost(Bundle savedInstanceState) {
         String postId = savedInstanceState.getString(POST_ID);
-        viewModel = ViewModelProviders.of(getNonNullActivity()).get(PagerActivityViewModel.class);
-        postLiveData = viewModel.getPost(postId);
+        postLiveData = getViewModel().getPost(postId);
         postLiveData.observe(this, this::populateViews);
+    }
+
+    private PagerActivityViewModel getViewModel() {
+        if (viewModel == null) {
+            ViewModelProvider viewModelProvider = ViewModelProviders.of(getNonNullActivity());
+            viewModel = viewModelProvider.get(PagerActivityViewModel.class);
+        }
+        return viewModel;
     }
 
     @NonNull
@@ -91,7 +99,7 @@ public class PostFragment extends Fragment {
     }
 
     private void loadSubreddit() {
-        subredditLiveData = viewModel.getSubreddit(post.getSubredditName());
+        subredditLiveData = getViewModel().getSubreddit(post.getSubredditName());
         subredditLiveData.observe(this, this::updateSubredditInPostView);
     }
 

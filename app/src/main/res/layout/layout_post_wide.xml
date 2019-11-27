@@ -20,11 +20,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/title_margin"
         android:gravity="center_vertical"
-        android:minHeight="@dimen/tap_minSize"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/media"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/link"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/tap_minSize"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/media"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bodyText" />
 
     <FrameLayout
         android:id="@+id/media"

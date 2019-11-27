@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -33,6 +36,7 @@ public class PostView extends ConstraintLayout {
     private TextView postDetails;
     private TextView title;
     private TextView bodyText;
+    private TextView link;
     private ImageView image;
     private PlayerView playerView;
 
@@ -60,6 +64,7 @@ public class PostView extends ConstraintLayout {
         postDetails = findViewById(R.id.postDetails);
         title = findViewById(R.id.title);
         bodyText = findViewById(R.id.bodyText);
+        link = findViewById(R.id.link);
         image = findViewById(R.id.image);
         playerView = findViewById(R.id.playerView);
         setPadding();
@@ -95,7 +100,8 @@ public class PostView extends ConstraintLayout {
         fillSubredditName();
         fillPostDetails();
         fillTitle();
-        addBody();
+        fillBodyText();
+        addMedia();
     }
 
     public void loadSubredditIcon() {
@@ -135,11 +141,30 @@ public class PostView extends ConstraintLayout {
 
     private void fillTitle() {
         if (title != null) {
-            title.setText(post.getTitle());
+            title.setText(processHtml(post.getTitle()));
         }
     }
 
-    private void addBody() {
+    private Spanned processHtml(String htmlText) {
+        String cleanedText = htmlText.replaceAll("&amp;#x200B;", "");
+        String textWithLineBreaks = cleanedText.replace("\n", "<br/>");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(textWithLineBreaks, Html.FROM_HTML_MODE_COMPACT);
+        } else {
+            return Html.fromHtml(textWithLineBreaks, Html.FROM_HTML_MODE_LEGACY);
+        }
+    }
+
+    private void fillBodyText() {
+        String text = post.getText();
+        if (this.bodyText == null || text == null || text.isEmpty()) {
+            return;
+        }
+        bodyText.setText(processHtml(text));
+        bodyText.setVisibility(VISIBLE);
+    }
+
+    private void addMedia() {
         if (post.hasImage()) {
             loadImage();
         } else if (post.hasVideo()) {
@@ -184,10 +209,13 @@ public class PostView extends ConstraintLayout {
     }
 
     private void addLink() {
-        bodyText.setText(post.getMediaUrl());
-        bodyText.setOnClickListener(this::openLink);
-        bodyText.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        bodyText.setVisibility(View.VISIBLE);
+        if (link == null) {
+            return;
+        }
+        link.setText(post.getMediaUrl());
+        link.setOnClickListener(this::openLink);
+        link.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        link.setVisibility(View.VISIBLE);
     }
 
     private void openLink(@SuppressWarnings("unused") View linkView) {
