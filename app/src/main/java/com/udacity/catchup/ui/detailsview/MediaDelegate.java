@@ -24,6 +24,7 @@ class MediaDelegate implements DetailsActivityDelegate {
     @Override
     public void initViews() {
         media = activity.findViewById(R.id.media);
+        media.useNewVideoPlayerInstance();
         media.setVisibility(View.VISIBLE);
     }
 
@@ -31,7 +32,6 @@ class MediaDelegate implements DetailsActivityDelegate {
     public void updatePost(Post post) {
         media.updatePost(post);
         if (post.hasVideo()) {
-            media.useNewVideoPlayerInstance();
             media.playVideo();
         }
     }
