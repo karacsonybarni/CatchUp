@@ -109,12 +109,12 @@ public class PostFragment extends Fragment {
         this.post = post;
     }
 
-    boolean hasVideo() {
-        return post.hasVideo();
-    }
-
-    void playVideo() {
-        postView.playVideo();
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (post != null && post.hasVideo()) {
+            postView.playVideo();
+        }
     }
 
     @Override

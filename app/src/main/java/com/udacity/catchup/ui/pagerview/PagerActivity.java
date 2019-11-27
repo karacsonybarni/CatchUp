@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.udacity.catchup.R;
@@ -28,7 +28,7 @@ public class PagerActivity extends AppCompatActivity {
 
     private PagerActivityViewModel viewModel;
     private PagerAdapter adapter;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +42,17 @@ public class PagerActivity extends AppCompatActivity {
     }
 
     private void initViewPager() {
-        adapter = new PagerAdapter(getSupportFragmentManager());
+        adapter = new PagerAdapter(this);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(newOnPageChangeListener());
+        viewPager.registerOnPageChangeCallback(newOnPageChangeCallback());
     }
 
-    private ViewPager.OnPageChangeListener newOnPageChangeListener() {
-        return new ViewPager.SimpleOnPageChangeListener() {
+    private ViewPager2.OnPageChangeCallback newOnPageChangeCallback() {
+        return new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 setSeen(position);
-                playVideoIfHas();
                 if (position >= adapter.getPosts().size() - 2) {
                     viewModel.fetchPosts();
                 }
@@ -63,13 +62,6 @@ public class PagerActivity extends AppCompatActivity {
 
     private void setSeen(int postPosition) {
         viewModel.setSeen(adapter.getPosts().get(postPosition));
-    }
-
-    private void playVideoIfHas() {
-        PostFragment currentFragment = adapter.getCurrentPage();
-        if (currentFragment != null && currentFragment.hasVideo()) {
-            currentFragment.playVideo();
-        }
     }
 
     private PagerActivityViewModel getViewModel() {
@@ -97,7 +89,6 @@ public class PagerActivity extends AppCompatActivity {
         if (firstUnseenPostPosition == 0) {
             setSeen(0);
         }
-        playVideoIfHas();
     }
 
     private int getFirstUnseenPostPosition(List<Post> posts) {
