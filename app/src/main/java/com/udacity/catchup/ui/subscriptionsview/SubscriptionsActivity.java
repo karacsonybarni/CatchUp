@@ -1,6 +1,6 @@
 package com.udacity.catchup.ui.subscriptionsview;
 
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +21,6 @@ import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
 import com.udacity.catchup.ui.CircleImageView;
-import com.udacity.catchup.ui.pagerview.PagerActivity;
 import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;
@@ -32,6 +31,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
     private SubscriptionsActivityViewModel viewModel;
     private ViewGroup subredditsView;
     private EditText subredditInput;
+    private Button continueButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,16 @@ public class SubscriptionsActivity extends AppCompatActivity {
 
     private void initSubreddits() {
         subredditsView = findViewById(R.id.subreddits);
-        viewModel.getSubreddits().observe(this, this::updateSubreddits);
+        viewModel.getSubreddits().observe(this, this::updateViews);
+    }
+
+    private void updateViews(List<Subreddit> subreddits) {
+        updateSubreddits(subreddits);
+        if (!subreddits.isEmpty()) {
+            continueButton.setEnabled(true);
+        } else {
+            continueButton.setEnabled(false);
+        }
     }
 
     private void updateSubreddits(List<Subreddit> subreddits) {
@@ -123,13 +132,16 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
     private void initContinueButton() {
-        Button continueButton = findViewById(R.id.continueButton);
-        continueButton.setOnClickListener(this::startPostsActivity);
+        continueButton = findViewById(R.id.continueButton);
+        continueButton.setOnClickListener(this::finish);
     }
 
-    private void startPostsActivity(@SuppressWarnings("unused") View controllerView) {
-        Intent intent = new Intent(this, PagerActivity.class);
-        startActivity(intent);
+    private void finish(@SuppressWarnings("unused") View controllerView) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        } else {
+            finish();
+        }
     }
 
     @Override

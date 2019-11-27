@@ -24,9 +24,11 @@ import java.util.List;
 
 public class PagerActivity extends AppCompatActivity {
 
+    private static boolean isStarting = true;
+
     private PagerActivityViewModel viewModel;
     private PagerAdapter adapter;
-    ViewPager viewPager;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +80,15 @@ public class PagerActivity extends AppCompatActivity {
     }
 
     private void updatePosts(List<Post> posts) {
+        adapter.updatePosts(posts);
         if (posts != null && !posts.isEmpty()) {
-            adapter.updatePosts(posts);
             updateCurrentPage(posts);
+        } else if (isStarting) {
+            startSubscriptionsActivity();
         } else {
-            showInternetErrorSnackbar();
+            showNoSubredditsSnackbar();
         }
+        isStarting = false;
     }
 
     private void updateCurrentPage(List<Post> posts) {
@@ -103,23 +108,21 @@ public class PagerActivity extends AppCompatActivity {
         return position;
     }
 
-    private void showInternetErrorSnackbar() {
+    private void showNoSubredditsSnackbar() {
         Snackbar
                 .make(
                         findViewById(R.id.viewPager),
                         getString(R.string.nothing_to_show),
                         Snackbar.LENGTH_LONG)
                 .setAction(
-                        getString(R.string.retry),
-                        v -> viewModel.fetchPosts())
+                        getString(R.string.go_to_subreddits),
+                        v -> startSubscriptionsActivity())
                 .show();
     }
 
     private void updateSubreddits(List<Subreddit> subreddits) {
         if (subreddits != null && !subreddits.isEmpty()) {
             adapter.updateSubreddits(subreddits);
-        } else {
-            startSubscriptionsActivity();
         }
     }
 
