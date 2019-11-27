@@ -31,7 +31,7 @@ public class PagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_posts);
+        setContentView(R.layout.activity_pager);
 
         viewModel = getViewModel();
         viewModel.getPosts().observe(this, this::updatePosts);
