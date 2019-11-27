@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/title_margin"
+        android:autoLink="web"
         android:gravity="center_vertical"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
@@ -32,7 +31,6 @@ public class PostFragment extends Fragment {
     private LiveData<Subreddit> subredditLiveData;
     private Post post;
 
-    private CardView card;
     private PostView postView;
 
     @Nullable
@@ -42,7 +40,7 @@ public class PostFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View rootView = inflateView(inflater, container);
-        initViews(rootView);
+        initPostView(rootView);
         populateViews(savedInstanceState);
         return rootView;
     }
@@ -51,9 +49,15 @@ public class PostFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_post, container, false);
     }
 
-    private void initViews(View rootView) {
-        card = rootView.findViewById(R.id.card);
-        postView = card.findViewById(R.id.post);
+    private void initPostView(View rootView) {
+        postView = rootView.findViewById(R.id.post);
+        postView.setOnClickListener(this::startDetailsActivity);
+    }
+
+    private void startDetailsActivity(@SuppressWarnings("unused") View view) {
+        Intent intent = new Intent(getNonNullActivity(), DetailsActivity.class);
+        intent.putExtra(DetailsActivity.POST_ID_EXTRA, post.getId());
+        startActivity(intent);
     }
 
     private void populateViews(Bundle savedInstanceState) {
@@ -86,16 +90,9 @@ public class PostFragment extends Fragment {
     private void populateViews(Post post) {
         this.post = post;
         postView.updatePost(post);
-        card.setOnClickListener(this::startDetailsActivity);
         if (post.getSubreddit() == null) {
             loadSubreddit();
         }
-    }
-
-    private void startDetailsActivity(@SuppressWarnings("unused") View view) {
-        Intent intent = new Intent(getNonNullActivity(), DetailsActivity.class);
-        intent.putExtra(DetailsActivity.POST_ID_EXTRA, post.getId());
-        startActivity(intent);
     }
 
     private void loadSubreddit() {

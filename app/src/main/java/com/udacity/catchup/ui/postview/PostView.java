@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
@@ -28,6 +29,7 @@ import com.udacity.catchup.ui.CircleImageView;
 public class PostView extends ConstraintLayout {
 
     private Post post;
+    private OnClickListener onClickListener;
     private boolean shouldUseNewVideoPlayerInstance;
 
     private TextView subredditName;
@@ -157,11 +159,17 @@ public class PostView extends ConstraintLayout {
 
     private void fillBodyText() {
         String text = post.getText();
-        if (this.bodyText == null || text == null || text.isEmpty()) {
+        if (this.bodyText == null || hasNoText()) {
             return;
         }
         bodyText.setText(processHtml(text));
+        bodyText.setOnClickListener(onClickListener);
         bodyText.setVisibility(VISIBLE);
+    }
+
+    private boolean hasNoText() {
+        String text = post.getText();
+        return text == null || text.isEmpty();
     }
 
     private void addMedia() {
@@ -169,7 +177,7 @@ public class PostView extends ConstraintLayout {
             loadImage();
         } else if (post.hasVideo()) {
             loadVideo();
-        } else if (hasLink()) {
+        } else if (hasLink() && hasNoText()) {
             addLink();
         }
     }
@@ -229,6 +237,12 @@ public class PostView extends ConstraintLayout {
 
     public void useNewVideoPlayerInstance() {
         this.shouldUseNewVideoPlayerInstance = true;
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener l) {
+        super.setOnClickListener(l);
+        onClickListener = l;
     }
 
     public void onPause() {
