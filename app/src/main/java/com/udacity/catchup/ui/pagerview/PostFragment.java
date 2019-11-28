@@ -1,5 +1,6 @@
 package com.udacity.catchup.ui.pagerview;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,7 +20,9 @@ import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
 import com.udacity.catchup.ui.detailsview.DetailsActivity;
 import com.udacity.catchup.ui.postview.PostView;
+import com.udacity.catchup.util.ConfigurationUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 public class PostFragment extends Fragment {
@@ -95,9 +98,7 @@ public class PostFragment extends Fragment {
         if (post.getSubreddit() == null) {
             loadSubreddit();
         }
-        if (!postView.hasMedia()) {
-            textTransitioner.setVisibility(View.VISIBLE);
-        }
+        applyTextTransitionerIfLongText();
     }
 
     private void loadSubreddit() {
@@ -108,6 +109,25 @@ public class PostFragment extends Fragment {
     private void updateSubredditInPostView(Subreddit subreddit) {
         post.setSubreddit(subreddit);
         postView.loadOrHideSubredditIcon();
+    }
+
+    private void applyTextTransitionerIfLongText() {
+        WeakReference<Activity> activity = new WeakReference<>(getNonNullActivity());
+        postView.post(() -> applyTextTransitionerIfLongText(activity));
+    }
+
+    private void applyTextTransitionerIfLongText(WeakReference<Activity> activityWeakReference) {
+        Activity activity = activityWeakReference.get();
+        if (activity != null && doesCardFillsScreen(activity)) {
+            textTransitioner.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private boolean doesCardFillsScreen(Activity activity) {
+        if (ConfigurationUtils.isInLandscapeMode(activity)) {
+            return true;
+        }
+        return postView.getHeight() >= ConfigurationUtils.getUsablePortraitHeight(activity);
     }
 
     void setPost(Post post) {
