@@ -181,4 +181,14 @@ public class Post {
     public boolean hasVideo() {
         return hasType("video");
     }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof Post)) {
+            return false;
+        }
+        Post post = (Post) obj;
+        //noinspection ConstantConditions
+        return id != null && id.equals(post.getId());
+    }
 }

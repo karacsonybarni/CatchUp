@@ -9,16 +9,20 @@ import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 class PagerAdapter extends FragmentStateAdapter {
 
     private List<Post> posts;
     private Map<String, Subreddit> subreddits;
+    private Set<Long> ids;
 
     PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
+        ids = new HashSet<>();
     }
 
     @NonNull
@@ -32,6 +36,18 @@ class PagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return posts != null ? posts.size() : 0;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        long hashCode = posts.get(position).getId().hashCode();
+        ids.add(hashCode);
+        return hashCode;
+    }
+
+    @Override
+    public boolean containsItem(long itemId) {
+        return ids.contains(itemId);
     }
 
     void updatePosts(List<Post> posts) {

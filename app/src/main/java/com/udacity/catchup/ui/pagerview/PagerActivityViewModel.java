@@ -25,9 +25,24 @@ class PagerActivityViewModel extends ViewModel {
 
     private void updatePostsIfSizeDiffers(List<Post> postsFromDb) {
         List<Post> oldPosts = this.posts.getValue();
-        if (oldPosts == null || oldPosts.size() != postsFromDb.size()) {
+        if (oldPosts == null || !areEqual(oldPosts, postsFromDb)) {
             posts.postValue(postsFromDb);
         }
+    }
+
+    private boolean areEqual(List<Post> a, List<Post> b) {
+        if (a == null || b == null) {
+            return a == null && b == null;
+        }
+        if (a.size() != b.size()) {
+            return false;
+        }
+        for (Post aPost : a) {
+            if (!b.contains(aPost)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     LiveData<List<Post>> getPosts() {
