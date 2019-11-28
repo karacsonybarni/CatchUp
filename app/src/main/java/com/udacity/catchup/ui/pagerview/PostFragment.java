@@ -118,12 +118,12 @@ public class PostFragment extends Fragment {
 
     private void applyTextTransitionerIfLongText(WeakReference<Activity> activityWeakReference) {
         Activity activity = activityWeakReference.get();
-        if (activity != null && doesCardFillsScreen(activity)) {
+        if (activity != null && doesCardFillScreen(activity) && !postView.hasMedia()) {
             textTransitioner.setVisibility(View.VISIBLE);
         }
     }
 
-    private boolean doesCardFillsScreen(Activity activity) {
+    private boolean doesCardFillScreen(Activity activity) {
         if (ConfigurationUtils.isInLandscapeMode(activity)) {
             return true;
         }

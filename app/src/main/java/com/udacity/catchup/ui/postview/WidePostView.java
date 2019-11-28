@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.constraintlayout.widget.ConstraintSet;
+
 import com.udacity.catchup.R;
 
 public class WidePostView extends PostView {
@@ -38,11 +40,26 @@ public class WidePostView extends PostView {
     void showImage() {
         super.showImage();
         mediaView.setVisibility(VISIBLE);
+        updateConstraints();
+    }
+
+    private void updateConstraints() {
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(this);
+        connectViewToMedia(constraintSet, R.id.title);
+        connectViewToMedia(constraintSet, R.id.bodyText);
+        connectViewToMedia(constraintSet, R.id.link);
+        constraintSet.applyTo(this);
+    }
+
+    private void connectViewToMedia(ConstraintSet constraintSet, int viewId) {
+        constraintSet.connect(viewId, ConstraintSet.END, R.id.media, ConstraintSet.START);
     }
 
     @Override
     void showVideo() {
         super.showVideo();
         mediaView.setVisibility(VISIBLE);
+        updateConstraints();
     }
 }
