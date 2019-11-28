@@ -94,12 +94,20 @@ public class SubscriptionsActivity extends AppCompatActivity {
         subredditName.setText(subreddit.getName());
         Button removeButton = subredditItem.findViewById(R.id.removeButton);
         removeButton.setOnClickListener(v -> viewModel.removeSubreddit(subreddit));
-        loadIcon(subredditItem, subreddit.getIconUrl());
+        loadOrHideIcon(subredditItem, subreddit.getIconUrl());
         subredditsView.addView(subredditItem);
     }
 
-    private void loadIcon(View subredditItem, String iconUrl) {
+    private void loadOrHideIcon(View subredditItem, String iconUrl) {
         View iconView = subredditItem.findViewById(R.id.icon);
+        if (!iconUrl.isEmpty()) {
+            loadIcon(iconView, iconUrl);
+        } else {
+            iconView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void loadIcon(View iconView, String iconUrl) {
         if (iconView instanceof CircleImageView) {
             ((CircleImageView) iconView).load(iconUrl);
         } else {

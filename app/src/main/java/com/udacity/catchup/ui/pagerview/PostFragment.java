@@ -107,7 +107,7 @@ public class PostFragment extends Fragment {
 
     private void updateSubredditInPostView(Subreddit subreddit) {
         post.setSubreddit(subreddit);
-        postView.loadSubredditIcon();
+        postView.loadOrHideSubredditIcon();
     }
 
     void setPost(Post post) {

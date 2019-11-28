@@ -48,7 +48,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/headerText"
+        app:layout_constraintStart_toEndOf="@+id/headerTexts"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView

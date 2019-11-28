@@ -125,7 +125,7 @@ class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.CommentViewHold
 
         private void bindPost() {
             PostView postView = (PostView) itemView;
-            postView.loadSubredditIcon();
+            postView.loadOrHideSubredditIcon();
             postView.playVideo();
         }
 

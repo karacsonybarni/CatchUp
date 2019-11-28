@@ -11,6 +11,7 @@ import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,8 +33,9 @@ public class PostView extends ConstraintLayout {
     private OnClickListener onClickListener;
     private boolean shouldUseNewVideoPlayerInstance;
 
-    private TextView subredditName;
     private CircleImageView subredditIcon;
+    private ViewGroup headerTexts;
+    private TextView subredditName;
     private ImageView subredditIconCompat;
     private TextView postDetails;
     private TextView title;
@@ -61,9 +63,12 @@ public class PostView extends ConstraintLayout {
 
     private void initViews() {
         LayoutInflater.from(getContext()).inflate(getLayoutResourceId(), this);
-        subredditName = findViewById(R.id.subredditName);
         initSubredditIcon();
-        postDetails = findViewById(R.id.postDetails);
+        headerTexts = findViewById(R.id.headerTexts);
+        if (headerTexts != null) {
+            subredditName = headerTexts.findViewById(R.id.subredditName);
+            postDetails = headerTexts.findViewById(R.id.postDetails);
+        }
         title = findViewById(R.id.title);
         bodyText = findViewById(R.id.bodyText);
         link = findViewById(R.id.link);
@@ -98,7 +103,7 @@ public class PostView extends ConstraintLayout {
     }
 
     private void populateViews() {
-        loadSubredditIcon();
+        loadOrHideSubredditIcon();
         fillSubredditName();
         fillPostDetails();
         fillTitle();
@@ -106,15 +111,47 @@ public class PostView extends ConstraintLayout {
         addMedia();
     }
 
-    public void loadSubredditIcon() {
+    public void loadOrHideSubredditIcon() {
         Subreddit subreddit = post.getSubreddit();
-        if (subreddit != null) {
-            if (subredditIcon != null) {
-                subredditIcon.load(subreddit.getIconUrl());
-            } else if (subredditIconCompat != null) {
-                Picasso.get().load(subreddit.getIconUrl()).into(subredditIconCompat);
-            }
+        if (subreddit == null) {
+            return;
         }
+        if (!subreddit.getIconUrl().isEmpty()) {
+            loadSubredditIcon(subreddit);
+        } else {
+            hideSubredditIconAndUpdateLayout();
+        }
+    }
+
+    private void loadSubredditIcon(Subreddit subreddit) {
+        if (subredditIcon != null) {
+            subredditIcon.load(subreddit.getIconUrl());
+        } else if (subredditIconCompat != null) {
+            Picasso.get().load(subreddit.getIconUrl()).into(subredditIconCompat);
+        }
+    }
+
+    private void hideSubredditIconAndUpdateLayout() {
+        hideSubredditIcon();
+        updateLayoutAfterHidingIcon();
+    }
+
+    private void hideSubredditIcon() {
+        View subredditIconView = subredditIcon != null ? subredditIcon : subredditIconCompat;
+        subredditIconView.setVisibility(INVISIBLE);
+        ViewGroup.LayoutParams iconLP = subredditIconView.getLayoutParams();
+        iconLP.width = 0;
+        subredditIconView.setLayoutParams(iconLP);
+    }
+
+    private void updateLayoutAfterHidingIcon() {
+        LayoutParams headerTextsLP = (LayoutParams) headerTexts.getLayoutParams();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            headerTextsLP.setMarginStart(0);
+        } else {
+            headerTextsLP.leftMargin = 0;
+        }
+        headerTexts.setLayoutParams(headerTextsLP);
     }
 
     private void fillSubredditName() {
