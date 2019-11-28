@@ -235,6 +235,7 @@ public class PostView extends ConstraintLayout {
 
     private void loadVideo() {
         showVideo();
+        playerView.setOnClickListener(onClickListener);
         String videoUrl = post.getVideoUrl();
         validVideoUrl = videoUrl != null ? videoUrl : post.getMediaUrl();
         if (shouldUseNewVideoPlayerInstance) {
