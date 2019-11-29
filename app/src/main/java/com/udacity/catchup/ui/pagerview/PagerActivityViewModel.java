@@ -40,12 +40,16 @@ class PagerActivityViewModel extends ViewModel {
         if (listA.size() != listB.size()) {
             return false;
         }
+        if (listA.isEmpty()) {
+            return true;
+        }
         return areUnseenPostsEqual(listA, listB);
     }
 
     private boolean areUnseenPostsEqual(List<Post> listA, List<Post> listB) {
         int size = listB.size();
         int lastSeenPostPosition = getFirstUnseenPostPosition(listB) - 1;
+        lastSeenPostPosition = lastSeenPostPosition < 0 ? lastSeenPostPosition : 0;
         Set<Post> setA = new HashSet<>(listA.subList(lastSeenPostPosition, size));
         Set<Post> setB = new HashSet<>(listB.subList(lastSeenPostPosition, size));
         for (Post postA : setA) {

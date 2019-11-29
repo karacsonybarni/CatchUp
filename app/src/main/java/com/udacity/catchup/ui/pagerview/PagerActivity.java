@@ -52,8 +52,11 @@ public class PagerActivity extends AppCompatActivity {
         return new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                setSeen(position);
-                if (position >= adapter.getPosts().size() - 2) {
+                List<Post> posts = adapter.getPosts();
+                if (!posts.isEmpty()) {
+                    setSeen(position);
+                }
+                if (position >= posts.size() - 2) {
                     viewModel.fetchPosts();
                 }
             }
