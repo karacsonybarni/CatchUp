@@ -3,18 +3,18 @@
     <dimen name="subscriptionsActivity_margin">32dp</dimen>
     <dimen name="subreddit_name_minWidth">100dp</dimen>
     <dimen name="subreddit_input_minWidth">156dp</dimen>
-    <dimen name="small_icon_size">40dp</dimen>
+    <dimen name="small_iconView_size">40dp</dimen>
     <dimen name="small_icon_margin">8dp</dimen>
     <dimen name="button_size">48dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
     <dimen name="continueButton_marginBottom">32dp</dimen>
     <dimen name="input_marginBottom">32dp</dimen>
     <dimen name="subredditName_textSize">20sp</dimen>
     <dimen name="subredditInput_textSize">@dimen/subredditName_textSize</dimen>
-    <dimen name="addRemoveButton_textSize">@dimen/subredditName_textSize</dimen>
     <dimen name="continueButton_textSize">18sp</dimen>
 
     <dimen name="card_height">@dimen/wrap_content</dimen>
-    <dimen name="icon_size">48dp</dimen>
+    <dimen name="iconView_size">48dp</dimen>
     <dimen name="icon_cornerRadius">24dp</dimen>
     <dimen name="card_margin">16dp</dimen>
     <dimen name="postView_padding">16dp</dimen>

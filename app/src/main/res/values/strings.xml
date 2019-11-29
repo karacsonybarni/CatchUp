@@ -4,8 +4,6 @@
 
     <string name="preferences">Preferences</string>
 
-    <string name="add_button_text">+</string>
-    <string name="remove_button_text">-</string>
     <string name="continue_button_text">Continue</string>
     <string name="subreddit_doesnt_exist">The subreddit doesn\'t exist</string>
 

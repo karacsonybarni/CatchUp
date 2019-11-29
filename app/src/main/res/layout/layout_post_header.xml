@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="@dimen/iconView_size"
+        android:layout_height="@dimen/iconView_size"
         android:contentDescription="@string/subreddit_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

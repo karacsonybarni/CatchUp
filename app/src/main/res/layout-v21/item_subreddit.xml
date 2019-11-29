@@ -7,8 +7,8 @@
 
     <com.udacity.catchup.ui.CircleImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/small_icon_size"
-        android:layout_height="@dimen/small_icon_size"
+        android:layout_width="@dimen/small_iconView_size"
+        android:layout_height="@dimen/small_iconView_size"
         android:layout_marginTop="@dimen/small_icon_margin"
         android:layout_marginEnd="@dimen/icon_margin"
         android:layout_marginBottom="@dimen/small_icon_margin" />
