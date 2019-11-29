@@ -86,19 +86,11 @@ public class PagerActivity extends AppCompatActivity {
     }
 
     private void updateCurrentPage(List<Post> posts) {
-        int firstUnseenPostPosition = getFirstUnseenPostPosition(posts);
-        viewPager.setCurrentItem(firstUnseenPostPosition);
+        int firstUnseenPostPosition = viewModel.getFirstUnseenPostPosition(posts);
+        viewPager.setCurrentItem(firstUnseenPostPosition, false);
         if (firstUnseenPostPosition == 0) {
             setSeen(0);
         }
-    }
-
-    private int getFirstUnseenPostPosition(List<Post> posts) {
-        int position = 0;
-        while (posts.get(position).isSeen() && position < posts.size() - 1) {
-            position++;
-        }
-        return position;
     }
 
     private void showNoSubredditsSnackbar() {

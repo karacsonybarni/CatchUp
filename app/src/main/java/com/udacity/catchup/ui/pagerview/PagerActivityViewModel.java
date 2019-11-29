@@ -8,7 +8,10 @@ import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Set;
 
 class PagerActivityViewModel extends ViewModel {
 
@@ -30,19 +33,46 @@ class PagerActivityViewModel extends ViewModel {
         }
     }
 
-    private boolean areEqual(List<Post> a, List<Post> b) {
-        if (a == null || b == null) {
-            return a == null && b == null;
+    private boolean areEqual(List<Post> listA, List<Post> listB) {
+        if (listA == null || listB == null) {
+            return listA == null && listB == null;
         }
-        if (a.size() != b.size()) {
+        if (listA.size() != listB.size()) {
             return false;
         }
-        for (Post aPost : a) {
-            if (!b.contains(aPost)) {
+        return areUnseenPostsEqual(listA, listB);
+    }
+
+    private boolean areUnseenPostsEqual(List<Post> listA, List<Post> listB) {
+        int size = listB.size();
+        int lastSeenPostPosition = getFirstUnseenPostPosition(listB) - 1;
+        Set<Post> setA = new HashSet<>(listA.subList(lastSeenPostPosition, size));
+        Set<Post> setB = new HashSet<>(listB.subList(lastSeenPostPosition, size));
+        for (Post postA : setA) {
+            if (!contains(setB, postA)) {
                 return false;
             }
         }
         return true;
+    }
+
+    int getFirstUnseenPostPosition(List<Post> posts) {
+        int position = posts.size() - 1;
+        ListIterator<Post> iterator = posts.listIterator(position);
+
+        while (iterator.hasPrevious() && !iterator.previous().isSeen()) {
+            position--;
+        }
+        return position;
+    }
+
+    private boolean contains(Set<Post> posts, Post post) {
+        for (Post setElem : posts) {
+            if (setElem.equals(post)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     LiveData<List<Post>> getPosts() {
