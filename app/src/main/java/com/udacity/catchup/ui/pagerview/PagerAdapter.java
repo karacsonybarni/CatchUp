@@ -1,10 +1,13 @@
 package com.udacity.catchup.ui.pagerview;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
 
@@ -16,13 +19,18 @@ import java.util.Set;
 
 class PagerAdapter extends FragmentStateAdapter {
 
+    private static final String STORED_POSTS = "stored_posts";
+    private static final String STORED_POSTS_NUM = "stored_posts_num";
+
     private List<Post> posts;
     private Map<String, Subreddit> subreddits;
     private Set<Long> ids;
+    private FirebaseAnalytics analytics;
 
     PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
         ids = new HashSet<>();
+        analytics = FirebaseAnalytics.getInstance(fragmentActivity);
     }
 
     @NonNull
@@ -53,7 +61,14 @@ class PagerAdapter extends FragmentStateAdapter {
     void updatePosts(List<Post> posts) {
         this.posts = posts;
         updatePosts();
+        logPostsSize();
         notifyDataSetChanged();
+    }
+
+    private void logPostsSize() {
+        Bundle postsSize = new Bundle();
+        postsSize.putInt(STORED_POSTS_NUM, posts.size());
+        analytics.logEvent(STORED_POSTS, postsSize);
     }
 
     private void updatePosts() {

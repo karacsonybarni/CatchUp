@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "180036133623",
+    "firebase_url": "https://catchup-25190.firebaseio.com",
+    "project_id": "catchup-25190",
+    "storage_bucket": "catchup-25190.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180036133623:android:8ad9ad47a76e8dc42fe9f2",
+        "android_client_info": {
+          "package_name": "com.udacity.catchup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180036133623-ra17jta6fftptq4nvj2rk3a5jqdn61t5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNK-24HfjPEQgJsobPfDoltVbuQEdZr3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180036133623-ra17jta6fftptq4nvj2rk3a5jqdn61t5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
