@@ -29,21 +29,11 @@ public class WidePostView extends PostView {
 
     private void init() {
         mediaView = findViewById(R.id.media);
-    }
-
-    @Override
-    int getLayoutResourceId() {
-        return R.layout.layout_post_wide;
-    }
-
-    @Override
-    void showImage() {
-        super.showImage();
-        mediaView.setVisibility(VISIBLE);
-        updateConstraints();
+        getPostViewPopulator().setConstraintsUpdater(this::updateConstraints);
     }
 
     private void updateConstraints() {
+        mediaView.setVisibility(VISIBLE);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(this);
         connectViewToMedia(constraintSet, R.id.title);
@@ -54,6 +44,11 @@ public class WidePostView extends PostView {
 
     private void connectViewToMedia(ConstraintSet constraintSet, int viewId) {
         constraintSet.connect(viewId, ConstraintSet.END, R.id.media, ConstraintSet.START);
+    }
+
+    @Override
+    int getLayoutResourceId() {
+        return R.layout.layout_post_wide;
     }
 
     @Override

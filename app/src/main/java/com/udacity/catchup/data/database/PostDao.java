@@ -19,6 +19,9 @@ public interface PostDao {
     @Query("SELECT * FROM post WHERE id = :id")
     LiveData<Post> get(String id);
 
+    @Query("SELECT * FROM post WHERE isSeen = 0 ORDER BY `order` LIMIT 1")
+    Post getNextUnseen();
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(List<Post> posts);
 

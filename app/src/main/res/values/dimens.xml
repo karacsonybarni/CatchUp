@@ -29,4 +29,6 @@
     <dimen name="divider_thickness">1dp</dimen>
     <dimen name="comment_marginVertical">8dp</dimen>
     <dimen name="comment_marginHorizontal">16dp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
 </resources>

@@ -20,6 +20,9 @@ public interface SubredditDao {
     @Query("SELECT * FROM subreddit WHERE name = :name")
     LiveData<Subreddit> getSubreddit(String name);
 
+    @Query("SELECT * FROM subreddit WHERE name = :name")
+    Subreddit getSubredditImmediately(String name);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<Subreddit> subreddit);
 

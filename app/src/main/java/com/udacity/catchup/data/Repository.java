@@ -93,6 +93,10 @@ public class Repository {
         return postDao.get(id);
     }
 
+    public Post getNextUnseenPost() {
+        return postDao.getNextUnseen();
+    }
+
     public void updatePost(Post post) {
         diskIO.execute(() -> postDao.insert(post));
     }
@@ -105,11 +109,19 @@ public class Repository {
         return subredditDao.getSubreddit(name);
     }
 
+    public Subreddit getSubredditImmediately(String name) {
+        return subredditDao.getSubredditImmediately(name);
+    }
+
     public void insertSubreddit(Subreddit subreddit) {
         diskIO.execute(() -> subredditDao.insert(subreddit));
     }
 
     public void removeSubreddit(Subreddit subreddit) {
         diskIO.execute(() -> subredditDao.remove(subreddit));
+    }
+
+    public Executor getDiskIO() {
+        return diskIO;
     }
 }
