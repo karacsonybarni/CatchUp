@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
-import com.udacity.catchup.ui.CircleImageView;
 import com.udacity.catchup.util.InjectorUtils;
 
 import java.util.List;
@@ -99,7 +98,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
     private void loadOrHideIcon(View subredditItem, String iconUrl) {
-        View iconView = subredditItem.findViewById(R.id.icon);
+        ImageView iconView = subredditItem.findViewById(R.id.icon);
         if (!iconUrl.isEmpty()) {
             loadIcon(iconView, iconUrl);
         } else {
@@ -107,12 +106,11 @@ public class SubscriptionsActivity extends AppCompatActivity {
         }
     }
 
-    private void loadIcon(View iconView, String iconUrl) {
-        if (iconView instanceof CircleImageView) {
-            ((CircleImageView) iconView).load(iconUrl);
-        } else {
-            Picasso.get().load(iconUrl).into((ImageView) iconView);
+    private void loadIcon(ImageView iconView, String iconUrl) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            iconView.setClipToOutline(true);
         }
+        Picasso.get().load(iconUrl).into(iconView);
     }
 
     private void initInputRow() {

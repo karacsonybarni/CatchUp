@@ -25,7 +25,6 @@ import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
-import com.udacity.catchup.ui.CircleImageView;
 
 public class PostView extends ConstraintLayout {
 
@@ -33,10 +32,9 @@ public class PostView extends ConstraintLayout {
     private OnClickListener onClickListener;
     private boolean shouldUseNewVideoPlayerInstance;
 
-    private CircleImageView subredditIcon;
+    private ImageView subredditIcon;
     private ViewGroup headerTexts;
     private TextView subredditName;
-    private ImageView subredditIconCompat;
     private TextView postDetails;
     private TextView title;
     private TextView bodyText;
@@ -82,12 +80,7 @@ public class PostView extends ConstraintLayout {
     }
 
     private void initSubredditIcon() {
-        View iconView = findViewById(R.id.icon);
-        if (iconView instanceof CircleImageView) {
-            subredditIcon = (CircleImageView) iconView;
-        } else {
-            subredditIconCompat = (ImageView) iconView;
-        }
+        subredditIcon = findViewById(R.id.icon);
     }
 
     private void setPadding() {
@@ -125,9 +118,10 @@ public class PostView extends ConstraintLayout {
 
     private void loadSubredditIcon(Subreddit subreddit) {
         if (subredditIcon != null) {
-            subredditIcon.load(subreddit.getIconUrl());
-        } else if (subredditIconCompat != null) {
-            Picasso.get().load(subreddit.getIconUrl()).into(subredditIconCompat);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                subredditIcon.setClipToOutline(true);
+            }
+            Picasso.get().load(subreddit.getIconUrl()).into(subredditIcon);
         }
     }
 
@@ -137,11 +131,10 @@ public class PostView extends ConstraintLayout {
     }
 
     private void hideSubredditIcon() {
-        View subredditIconView = subredditIcon != null ? subredditIcon : subredditIconCompat;
-        subredditIconView.setVisibility(INVISIBLE);
-        ViewGroup.LayoutParams iconLP = subredditIconView.getLayoutParams();
+        subredditIcon.setVisibility(INVISIBLE);
+        ViewGroup.LayoutParams iconLP = subredditIcon.getLayoutParams();
         iconLP.width = 0;
-        subredditIconView.setLayoutParams(iconLP);
+        subredditIcon.setLayoutParams(iconLP);
     }
 
     private void updateLayoutAfterHidingIcon() {

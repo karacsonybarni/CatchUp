@@ -10,7 +10,8 @@
         android:layout_height="@dimen/iconView_size"
         android:contentDescription="@string/subreddit_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/circle_background" />
 
     <include layout="@layout/layout_post_header_text" />
 </merge>
