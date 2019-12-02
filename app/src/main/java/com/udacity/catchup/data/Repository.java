@@ -1,5 +1,7 @@
 package com.udacity.catchup.data;
 
+import android.database.sqlite.SQLiteConstraintException;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
@@ -67,7 +69,14 @@ public class Repository {
 
     private void storePosts(List<Post> posts) {
         if (posts != null && !posts.isEmpty()) {
-            diskIO.execute(() -> postDao.insert(posts));
+            diskIO.execute(() -> insertSafe(posts));
+        }
+    }
+
+    private void insertSafe(List<Post> posts) {
+        try {
+            postDao.insert(posts);
+        } catch (SQLiteConstraintException ignore) {
         }
     }
 
