@@ -1,12 +1,15 @@
 package com.udacity.catchup.ui.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.entity.post.Post;
+import com.udacity.catchup.ui.detailsview.DetailsActivity;
 import com.udacity.catchup.ui.postview.PostViewPopulator;
 
 public class PostWidget extends AppWidgetProvider {
@@ -36,8 +39,16 @@ public class PostWidget extends AppWidgetProvider {
 
     private static void populateRemoteViews(Context context, RemoteViews views, Post post) {
         if (post != null) {
-            new PostViewPopulator(context, views).updatePost(post);
+            PendingIntent detailsActivityIntent = getDetailsActivityIntent(context, post.getId());
+            new PostViewPopulator(context, views, detailsActivityIntent).updatePost(post);
         }
+    }
+
+    private static PendingIntent getDetailsActivityIntent(Context context, String postId) {
+        Intent intent = new Intent(context, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.POST_ID_EXTRA, postId);
+        return PendingIntent
+                .getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
 

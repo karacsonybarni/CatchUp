@@ -92,11 +92,7 @@ class PagerActivityViewModel extends ViewModel {
     }
 
     void setSeen(Post post) {
-        if (!post.isSeen()) {
-            post.setSeen(true);
-            post.setOrder(post.getOrder() / 10);
-            repository.updatePost(post);
-        }
+        repository.setSeen(post);
     }
 
     LiveData<List<Subreddit>> getSubreddits() {

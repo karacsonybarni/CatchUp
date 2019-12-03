@@ -1,5 +1,6 @@
 package com.udacity.catchup.ui.postview;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
 import android.view.View;
@@ -153,5 +154,10 @@ class AppPostViewPopulator implements PostViewPopulatorDelegate {
     @Override
     public void setConstraintsUpdater(Runnable constraintsUpdater) {
         this.constraintsUpdater = constraintsUpdater;
+    }
+
+    @Override
+    public void setOnClickIntent(PendingIntent intent) {
+
     }
 }

@@ -42,8 +42,11 @@ public class PostIntentService extends IntentService {
     private void handleActionUpdatePostWidget() {
         Repository repository = InjectorUtils.getRepository(this);
         Post post = repository.getNextUnseenPost();
-        updatePostsSubreddit(repository, post);
-        updateWidgets(post);
+        if (post != null) {
+            updatePostsSubreddit(repository, post);
+            updateWidgets(post);
+            repository.setSeen(post);
+        }
     }
 
     private void updatePostsSubreddit(Repository repository, Post post) {

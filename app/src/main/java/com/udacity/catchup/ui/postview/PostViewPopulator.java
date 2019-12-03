@@ -1,5 +1,6 @@
 package com.udacity.catchup.ui.postview;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -24,8 +25,11 @@ public class PostViewPopulator {
         delegate = new AppPostViewPopulator(root);
     }
 
-    public PostViewPopulator(Context context, RemoteViews remoteViews) {
+    public PostViewPopulator(Context context,
+                             RemoteViews remoteViews,
+                             PendingIntent onClickIntent) {
         delegate = new RemotePostViewPopulator(context, remoteViews);
+        delegate.setOnClickIntent(onClickIntent);
     }
 
     public void updatePost(Post post) {

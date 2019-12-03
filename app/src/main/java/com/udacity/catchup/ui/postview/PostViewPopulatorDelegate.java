@@ -1,5 +1,6 @@
 package com.udacity.catchup.ui.postview;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.view.View;
 
@@ -14,4 +15,5 @@ public interface PostViewPopulatorDelegate {
     void showImage(String imageUrl);
     void addLink(String link, View.OnClickListener onClickListener);
     void setConstraintsUpdater(Runnable constraintsUpdater);
+    void setOnClickIntent(PendingIntent intent);
 }

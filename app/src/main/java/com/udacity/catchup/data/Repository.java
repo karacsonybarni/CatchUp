@@ -106,7 +106,15 @@ public class Repository {
         return postDao.getNextUnseen();
     }
 
-    public void updatePost(Post post) {
+    public void setSeen(Post post) {
+        if (!post.isSeen()) {
+            post.setSeen(true);
+            post.setOrder(post.getOrder() / 10);
+            updatePost(post);
+        }
+    }
+
+    private void updatePost(Post post) {
         diskIO.execute(() -> postDao.insert(post));
     }
 

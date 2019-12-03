@@ -1,5 +1,6 @@
 package com.udacity.catchup.ui.widget;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
@@ -94,5 +95,10 @@ public class RemotePostViewPopulator implements PostViewPopulatorDelegate {
     @Override
     public void setConstraintsUpdater(Runnable constraintsUpdater) {
 
+    }
+
+    @Override
+    public void setOnClickIntent(PendingIntent intent) {
+        remoteViews.setOnClickPendingIntent(R.id.postWidget, intent);
     }
 }
