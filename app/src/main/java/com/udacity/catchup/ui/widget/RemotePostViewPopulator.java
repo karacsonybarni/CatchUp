@@ -36,7 +36,13 @@ public class RemotePostViewPopulator implements PostViewPopulatorDelegate {
     private void loadImage(int resId, String url) {
         try {
             remoteViews.setViewVisibility(resId, View.VISIBLE);
-            Bitmap imageBitmap = Picasso.get().load(url).get();
+            Bitmap imageBitmap =
+                    Picasso
+                            .get()
+                            .load(url)
+                            .resize(1280, 0)
+                            .onlyScaleDown()
+                            .get();
             remoteViews.setImageViewBitmap(resId, imageBitmap);
         } catch (IOException e) {
             e.printStackTrace();

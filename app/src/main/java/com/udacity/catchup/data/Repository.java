@@ -129,8 +129,4 @@ public class Repository {
     public void removeSubreddit(Subreddit subreddit) {
         diskIO.execute(() -> subredditDao.remove(subreddit));
     }
-
-    public Executor getDiskIO() {
-        return diskIO;
-    }
 }

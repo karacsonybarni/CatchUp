@@ -128,7 +128,7 @@ class AppPostViewPopulator implements PostViewPopulatorDelegate {
         Picasso
                 .get()
                 .load(imageUrl)
-                .resize(2048, 1600)
+                .resize(2048, 0)
                 .onlyScaleDown()
                 .into(imageView);
     }
