@@ -15,6 +15,7 @@ import com.udacity.catchup.data.entity.post.Post;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
 import com.udacity.catchup.ui.postview.PostView;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.CommentViewHolder> {
@@ -22,12 +23,12 @@ class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.CommentViewHold
     private static final int VIEW_TYPE_POST = 0;
     private static final int VIEW_TYPE_COMMENT = 1;
 
-    private Context context;
+    private WeakReference<Context> contextReference;
     private Post post;
     private List<Comment> comments;
 
     DetailsAdapter(Context context) {
-        this.context = context;
+        contextReference = new WeakReference<>(context);
     }
 
     void updatePost(Post post) {
@@ -62,7 +63,7 @@ class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.CommentViewHold
     }
 
     private View createPostView() {
-        PostView postView = new PostView(context);
+        PostView postView = new PostView(contextReference.get());
         postView.useNewVideoPlayerInstance();
         postView.updatePost(post);
         initPostLayout(postView);
@@ -79,7 +80,7 @@ class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.CommentViewHold
 
     private View inflateCommentView(ViewGroup parent) {
         return LayoutInflater
-                .from(context)
+                .from(contextReference.get())
                 .inflate(R.layout.item_comment, parent, false);
     }
 

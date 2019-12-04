@@ -50,6 +50,9 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void initDelegate(Post post) {
+        if (post == null) {
+            return;
+        }
         boolean hasMedia = post.hasImage() || post.hasVideo();
         if (ConfigurationUtils.isInLandscapeMode(this) && hasMedia) {
             delegate = new MediaDelegate(this);
