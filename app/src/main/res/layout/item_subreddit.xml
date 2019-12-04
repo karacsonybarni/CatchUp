@@ -2,19 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:baselineAligned="false"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="@dimen/small_iconView_size"
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="@dimen/small_iconView_size"
-        android:layout_marginTop="@dimen/small_icon_margin"
-        android:layout_marginEnd="@dimen/icon_margin"
-        android:layout_marginRight="@dimen/icon_margin"
-        android:layout_marginBottom="@dimen/small_icon_margin"
-        android:contentDescription="@string/subreddit_icon"
-        android:background="@drawable/circle_background" />
+        android:layout_marginTop="@dimen/small_iconView_marginVertical"
+        android:layout_marginBottom="@dimen/small_iconView_marginVertical"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/small_iconView_size"
+            android:layout_height="@dimen/small_iconView_size"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/small_iconView_marginHorizontal"
+            android:layout_marginRight="@dimen/small_iconView_marginHorizontal"
+            android:background="@drawable/circle_background"
+            android:contentDescription="@string/subreddit_icon" />
+    </FrameLayout>
 
     <include layout="@layout/item_subreddit_name" />
 

@@ -2,16 +2,22 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/removeButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="@dimen/button_size"
-        android:layout_height="@dimen/button_size"
-        android:layout_gravity="center_vertical"
-        app:icon="@drawable/outline_clear_black_24"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:iconSize="@dimen/icon_size"
-        app:iconTint="@color/secondaryGrey"
-        app:rippleColor="@color/secondaryGrey" />
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/removeButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+            android:layout_gravity="center_vertical"
+            app:icon="@drawable/outline_clear_black_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="@dimen/icon_size"
+            app:iconTint="@color/secondaryGrey"
+            app:rippleColor="@color/secondaryGrey" />
+    </FrameLayout>
 </merge>

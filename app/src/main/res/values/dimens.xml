@@ -4,7 +4,8 @@
     <dimen name="subreddit_name_minWidth">100dp</dimen>
     <dimen name="subreddit_input_minWidth">156dp</dimen>
     <dimen name="small_iconView_size">40dp</dimen>
-    <dimen name="small_icon_margin">8dp</dimen>
+    <dimen name="small_iconView_marginVertical">8dp</dimen>
+    <dimen name="small_iconView_marginHorizontal">32dp</dimen>
     <dimen name="button_size">48dp</dimen>
     <dimen name="icon_size">24dp</dimen>
     <dimen name="continueButton_marginBottom">32dp</dimen>

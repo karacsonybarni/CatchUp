@@ -3,20 +3,16 @@ package com.udacity.catchup.ui.subscriptionsview;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.subreddit.Subreddit;
@@ -28,8 +24,7 @@ import java.util.Objects;
 public class SubscriptionsActivity extends AppCompatActivity {
 
     private SubscriptionsActivityViewModel viewModel;
-    private ViewGroup subredditsView;
-    private EditText subredditInput;
+    private SubscriptionsAdapter adapter;
     private Button continueButton;
 
     @Override
@@ -56,84 +51,23 @@ public class SubscriptionsActivity extends AppCompatActivity {
 
     private void initViews() {
         initSubreddits();
-        initInputRow();
         initContinueButton();
     }
 
     private void initSubreddits() {
-        subredditsView = findViewById(R.id.subreddits);
+        RecyclerView subredditsView = findViewById(R.id.subreddits);
+        subredditsView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SubscriptionsAdapter(this, viewModel);
+        subredditsView.setAdapter(adapter);
         viewModel.getSubreddits().observe(this, this::updateViews);
     }
 
     private void updateViews(List<Subreddit> subreddits) {
-        updateSubreddits(subreddits);
+        adapter.update(subreddits);
         if (!subreddits.isEmpty()) {
             continueButton.setEnabled(true);
         } else {
             continueButton.setEnabled(false);
-        }
-    }
-
-    private void updateSubreddits(List<Subreddit> subreddits) {
-        subredditsView.removeAllViews();
-        addSubreddits(subreddits);
-    }
-
-    private void addSubreddits(List<Subreddit> subreddits) {
-        for (Subreddit subreddit : subreddits) {
-            addSubredditItem(subreddit);
-        }
-    }
-
-    private void addSubredditItem(Subreddit subreddit) {
-        View subredditItem =
-                getLayoutInflater()
-                        .inflate(R.layout.item_subreddit, subredditsView, false);
-        TextView subredditName = subredditItem.findViewById(R.id.name);
-        subredditName.setText(subreddit.getName());
-        Button removeButton = subredditItem.findViewById(R.id.removeButton);
-        removeButton.setOnClickListener(v -> viewModel.removeSubreddit(subreddit));
-        loadOrHideIcon(subredditItem, subreddit.getIconUrl());
-        subredditsView.addView(subredditItem);
-    }
-
-    private void loadOrHideIcon(View subredditItem, String iconUrl) {
-        ImageView iconView = subredditItem.findViewById(R.id.icon);
-        if (!iconUrl.isEmpty()) {
-            loadIcon(iconView, iconUrl);
-        } else {
-            iconView.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    private void loadIcon(ImageView iconView, String iconUrl) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            iconView.setClipToOutline(true);
-        }
-        Picasso.get().load(iconUrl).into(iconView);
-    }
-
-    private void initInputRow() {
-        subredditInput = findViewById(R.id.subredditInput);
-        subredditInput.setOnEditorActionListener(getEnterKeyListener());
-        Button addButton = findViewById(R.id.addSubredditButton);
-        addButton.setOnClickListener(this::insertSubreddit);
-    }
-
-    private TextView.OnEditorActionListener getEnterKeyListener() {
-        return (v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                insertSubreddit(v);
-                return true;
-            }
-            return false;
-        };
-    }
-
-    private void insertSubreddit(@SuppressWarnings("unused") View addButton) {
-        String inputText = subredditInput.getText().toString().trim();
-        if (inputText.length() > 0) {
-            viewModel.insertSubredditIfValid(subredditInput);
         }
     }
 
