@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".ui.subscriptionsview.SubscriptionsActivity" />
         <activity android:name=".ui.detailsview.DetailsActivity" />
+
         <receiver android:name=".ui.widget.PostWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -31,7 +32,10 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/post_widget_info" />
         </receiver>
-        <service android:name=".ui.widget.PostIntentService" />
+        <!--suppress CheckTagEmptyBody -->
+        <service
+            android:name="com.udacity.catchup.ui.widget.PostIntentService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"></service>
     </application>
 
 </manifest>
