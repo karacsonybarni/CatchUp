@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="subscriptionsActivity_margin">32dp</dimen>
     <dimen name="subreddit_name_minWidth">100dp</dimen>
     <dimen name="subreddit_input_minWidth">156dp</dimen>
     <dimen name="small_iconView_size">40dp</dimen>
@@ -16,7 +15,6 @@
 
     <dimen name="card_height">@dimen/wrap_content</dimen>
     <dimen name="iconView_size">48dp</dimen>
-    <dimen name="icon_cornerRadius">24dp</dimen>
     <dimen name="card_margin">16dp</dimen>
     <dimen name="postView_padding">16dp</dimen>
     <dimen name="icon_margin">16dp</dimen>
@@ -27,7 +25,6 @@
     <dimen name="title_textSize">16sp</dimen>
     <dimen name="textTransitioner_height">50sp</dimen>
 
-    <dimen name="divider_thickness">1dp</dimen>
     <dimen name="comment_marginVertical">8dp</dimen>
     <dimen name="comment_marginHorizontal">16dp</dimen>
 
