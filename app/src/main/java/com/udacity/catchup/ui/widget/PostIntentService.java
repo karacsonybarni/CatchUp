@@ -33,7 +33,7 @@ public class PostIntentService extends IntentService {
         super(SERVICE_NAME);
     }
 
-    static void startActionUpdateWidget(Context context) {
+    public static void startActionUpdateWidget(Context context) {
         Intent intent = new Intent(context, PostIntentService.class);
         intent.setAction(ACTION_UPDATE_POST_WIDGET);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -102,7 +102,6 @@ public class PostIntentService extends IntentService {
         if (post != null) {
             updatePostsSubreddit(repository, post);
             updateWidgets(post);
-            repository.setSeen(post);
         }
     }
 

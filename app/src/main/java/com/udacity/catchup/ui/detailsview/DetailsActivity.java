@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.udacity.catchup.R;
 import com.udacity.catchup.data.Repository;
 import com.udacity.catchup.data.entity.post.Post;
+import com.udacity.catchup.ui.widget.PostIntentService;
 import com.udacity.catchup.util.ConfigurationUtils;
 import com.udacity.catchup.util.InjectorUtils;
 
@@ -43,6 +44,11 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void updatePost(Post post) {
+        updateAppViews(post);
+        updateWidgets(post);
+    }
+
+    private void updateAppViews(Post post) {
         initDelegate(post);
         delegate.initWindow();
         delegate.initViews();
@@ -59,6 +65,11 @@ public class DetailsActivity extends AppCompatActivity {
         } else {
             delegate = new RecyclerViewDelegate(this);
         }
+    }
+
+    private void updateWidgets(Post post) {
+        viewModel.setSeen(post);
+        PostIntentService.startActionUpdateWidget(this);
     }
 
     DetailsActivityViewModel getViewModel() {

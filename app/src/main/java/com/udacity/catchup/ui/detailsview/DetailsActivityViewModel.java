@@ -28,4 +28,8 @@ class DetailsActivityViewModel extends ViewModel {
         }
         return subreddit;
     }
+
+    void setSeen(Post post) {
+        repository.setSeen(post);
+    }
 }
