@@ -6,6 +6,7 @@
 
     <string name="continue_button_text">Continue</string>
     <string name="subreddit_doesnt_exist">The subreddit doesn\'t exist</string>
+    <string name="nsfw_subreddit">NSFW subreddits are not allowed</string>
 
     <string name="no_internet_connection">No internet connection</string>
     <string name="nothing_to_show">Nothing to show. Add some subreddits</string>

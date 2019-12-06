@@ -33,13 +33,21 @@ class SubredditValidatorCallback implements Callback<SubredditWrapper> {
         Subreddit subreddit = responseBody != null ? responseBody.getData() : null;
         //noinspection ConstantConditions
         if (subreddit != null && subreddit.getName() != null) {
-            repository.insertSubreddit(subreddit);
-            subredditInput.setText("");
+            if (!subreddit.isNsfw()) {
+                repository.insertSubreddit(subreddit);
+                subredditInput.setText("");
+            } else {
+                showSubredditError(R.string.nsfw_subreddit);
+            }
         } else {
-            Context context = subredditInput.getContext();
-            String errorString = context.getString(R.string.subreddit_doesnt_exist);
-            subredditInput.setError(errorString);
+            showSubredditError(R.string.subreddit_doesnt_exist);
         }
+    }
+
+    private void showSubredditError(int errorTextId) {
+        Context context = subredditInput.getContext();
+        String errorString = context.getString(errorTextId);
+        subredditInput.setError(errorString);
     }
 
     @Override
