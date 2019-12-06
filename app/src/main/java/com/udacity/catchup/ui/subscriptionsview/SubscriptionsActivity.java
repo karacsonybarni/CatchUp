@@ -24,7 +24,8 @@ import java.util.Objects;
 public class SubscriptionsActivity extends AppCompatActivity {
 
     private SubscriptionsActivityViewModel viewModel;
-    private SubscriptionsAdapter adapter;
+    private RecyclerView subredditsView;
+    private SubscriptionsAdapter subredditsAdapter;
     private Button continueButton;
 
     @Override
@@ -55,16 +56,17 @@ public class SubscriptionsActivity extends AppCompatActivity {
     }
 
     private void initSubreddits() {
-        RecyclerView subredditsView = findViewById(R.id.subreddits);
+        subredditsView = findViewById(R.id.subreddits);
         subredditsView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SubscriptionsAdapter(this, viewModel);
-        subredditsView.setAdapter(adapter);
+        subredditsAdapter = new SubscriptionsAdapter(this, viewModel);
+        subredditsView.setAdapter(subredditsAdapter);
         viewModel.getSubreddits().observe(this, this::updateViews);
     }
 
     private void updateViews(List<Subreddit> subreddits) {
-        adapter.update(subreddits);
+        subredditsAdapter.update(subreddits);
         if (!subreddits.isEmpty()) {
+            subredditsView.scrollToPosition(subreddits.size());
             continueButton.setEnabled(true);
         } else {
             continueButton.setEnabled(false);

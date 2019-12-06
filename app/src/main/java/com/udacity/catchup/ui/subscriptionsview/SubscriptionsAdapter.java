@@ -66,6 +66,8 @@ class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdapter.Sub
     public void onBindViewHolder(@NonNull SubredditViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_SUBREDDIT_INFO) {
             holder.bind(subreddits.get(position));
+        } else {
+            holder.requestInputFocus();
         }
     }
 
@@ -139,6 +141,12 @@ class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdapter.Sub
             loadOrHideIcon(subreddit.getIconUrl());
             name.setText(subreddit.getName());
             removeButton.setOnClickListener(v -> viewModel.removeSubreddit(subreddit));
+        }
+
+        private void requestInputFocus() {
+            if (!input.hasFocus()) {
+                input.requestFocus();
+            }
         }
 
         private void loadOrHideIcon(String iconUrl) {
