@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('keystore')
+            storePassword 'catchup'
+            keyAlias = 'barnakaracsony'
+            keyPassword 'barnakaracsony'
+        }
+    }
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.udacity.catchup"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
