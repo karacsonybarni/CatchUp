@@ -18,6 +18,9 @@ public class Subreddit {
     @SerializedName("icon_img")
     private String iconUrl;
 
+    @SerializedName("over18")
+    private boolean isNsfw;
+
     @NonNull
     public String getName() {
         return name;
@@ -33,5 +36,13 @@ public class Subreddit {
 
     public void setIconUrl(String iconUrl) {
         this.iconUrl = iconUrl;
+    }
+
+    public boolean isNsfw() {
+        return isNsfw;
+    }
+
+    public void setNsfw(boolean nsfw) {
+        isNsfw = nsfw;
     }
 }
