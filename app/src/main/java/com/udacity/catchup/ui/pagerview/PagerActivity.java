@@ -1,12 +1,15 @@
 package com.udacity.catchup.ui.pagerview;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -81,7 +84,7 @@ public class PagerActivity extends AppCompatActivity {
                 updateCurrentPage(posts);
             }
         } else if (isStarting) {
-            startSubscriptionsActivity();
+            startSubscriptionsActivityWithoutAnimation();
         } else {
             showNoSubredditsSnackbar();
         }
@@ -130,6 +133,22 @@ public class PagerActivity extends AppCompatActivity {
     }
 
     private void startSubscriptionsActivity() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startSubscriptionsActivityWithAnimation();
+        } else {
+            startSubscriptionsActivityWithoutAnimation();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void startSubscriptionsActivityWithAnimation() {
+        Intent intent = new Intent(this, SubscriptionsActivity.class);
+        ActivityOptions options =
+                ActivityOptions.makeSceneTransitionAnimation(this);
+        startActivity(intent, options.toBundle());
+    }
+
+    private void startSubscriptionsActivityWithoutAnimation() {
         Intent intent = new Intent(this, SubscriptionsActivity.class);
         startActivity(intent);
     }
