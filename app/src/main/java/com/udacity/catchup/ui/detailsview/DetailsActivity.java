@@ -14,6 +14,8 @@ import com.udacity.catchup.ui.widget.PostIntentService;
 import com.udacity.catchup.util.ConfigurationUtils;
 import com.udacity.catchup.util.InjectorUtils;
 
+import java.util.Objects;
+
 public class DetailsActivity extends AppCompatActivity {
 
     public static final String POST_ID_EXTRA = "postId";
@@ -27,9 +29,14 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        showUpButton();
         viewModel = getViewModel(getId());
         postLiveData = viewModel.getPost();
         postLiveData.observe(this, this::updatePost);
+    }
+
+    private void showUpButton() {
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     private String getId() {
