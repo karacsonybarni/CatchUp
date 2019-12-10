@@ -16,4 +16,5 @@ public interface PostViewPopulatorDelegate {
     void addLink(String link, View.OnClickListener onClickListener);
     void setConstraintsUpdater(Runnable constraintsUpdater);
     void setOnClickIntent(PendingIntent intent);
+    void setOnClickListener(View.OnClickListener listener);
 }

@@ -28,6 +28,8 @@ class AppPostViewPopulator implements PostViewPopulatorDelegate {
     private TextView linkView;
     private ImageView imageView;
 
+    private View.OnClickListener onClickListener;
+
     AppPostViewPopulator(ViewGroup rootView) {
         this.rootView = rootView;
         subredditIconView = rootView.findViewById(R.id.icon);
@@ -111,6 +113,7 @@ class AppPostViewPopulator implements PostViewPopulatorDelegate {
     public void fillTitle(String title) {
         if (titleView != null) {
             titleView.setText(title);
+            titleView.setOnClickListener(onClickListener);
         }
     }
 
@@ -118,6 +121,7 @@ class AppPostViewPopulator implements PostViewPopulatorDelegate {
     public void fillBodyText(String bodyText) {
         if (bodyTextView != null) {
             bodyTextView.setText(bodyText);
+            bodyTextView.setOnClickListener(onClickListener);
             bodyTextView.setVisibility(View.VISIBLE);
         }
     }
@@ -159,5 +163,10 @@ class AppPostViewPopulator implements PostViewPopulatorDelegate {
     @Override
     public void setOnClickIntent(PendingIntent intent) {
 
+    }
+
+    @Override
+    public void setOnClickListener(View.OnClickListener listener) {
+        onClickListener = listener;
     }
 }

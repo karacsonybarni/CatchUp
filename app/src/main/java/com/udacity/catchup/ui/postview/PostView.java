@@ -90,6 +90,7 @@ public class PostView extends ConstraintLayout {
     public void setOnClickListener(@Nullable OnClickListener l) {
         super.setOnClickListener(l);
         onClickListener = l;
+        postViewPopulator.setOnClickListener(l);
     }
 
     public boolean hasMedia() {

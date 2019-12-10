@@ -101,4 +101,8 @@ public class RemotePostViewPopulator implements PostViewPopulatorDelegate {
     public void setOnClickIntent(PendingIntent intent) {
         remoteViews.setOnClickPendingIntent(R.id.postWidget, intent);
     }
+
+    @Override
+    public void setOnClickListener(View.OnClickListener listener) {
+    }
 }

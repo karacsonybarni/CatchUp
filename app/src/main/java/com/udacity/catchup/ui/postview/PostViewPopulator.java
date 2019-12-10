@@ -116,4 +116,8 @@ public class PostViewPopulator {
     void setConstraintsUpdater(Runnable constraintsUpdater) {
         delegate.setConstraintsUpdater(constraintsUpdater);
     }
+
+    void setOnClickListener(View.OnClickListener listener) {
+        delegate.setOnClickListener(listener);
+    }
 }
