@@ -2,8 +2,9 @@
 
 ## Description
 
-CatchUp is an Android Reddit reader app that allows the user to indicate a set of subreddits that they would like to follow and store. 
-The app presents the user with a post from one of their selected subreddits. 
+CatchUp is an Android Reddit reader app that allows the user to indicate a set of subreddits 
+that they would like to follow and store. 
+The app presents the user with one post at a time from one of their selected subreddits. 
 They can interact with the post or they can swipe to see another one. 
 
 ## Key features
@@ -27,7 +28,8 @@ This view also lets the user remove subreddits or to add new ones.
 
 ### Pager View
 
-The Pager View is the main view of the app. It shows one post at a time from a random unseen subreddit that the user follows.
+The Pager View is the main view of the app. 
+It shows one post at a time from a random unseen subreddit that the user follows.
 The user can swipe right to see another new post, 
 or they can swipe left to read again a post that they've already seen. 
 When the user selects a post by tapping on it, the app takes them to the Details View.
