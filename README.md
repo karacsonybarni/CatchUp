@@ -1,7 +1,5 @@
 # CatchUp
 
-## Description
-
 CatchUp is an Android Reddit reader app that allows the user to indicate a set of subreddits 
 that they would like to follow and store. 
 The app presents the user with one post at a time from one of their selected subreddits. 
