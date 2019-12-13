@@ -41,7 +41,7 @@ public class RemotePostViewPopulator implements PostViewPopulatorDelegate {
                     Picasso
                             .get()
                             .load(url)
-                            .resize(1280, 0)
+                            .resize(1024, 0)
                             .onlyScaleDown()
                             .get();
             remoteViews.setImageViewBitmap(resId, imageBitmap);
