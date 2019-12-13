@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#C41900</color>
+    <color name="colorPrimaryDark">#8C0000</color>
+    <color name="colorAccent">#C41900</color>
+
+    <color name="secondaryGrey">#BDBDBD</color>
+
+    <color name="primaryText">#FFFFFF</color>
+    <color name="secondaryText">#BDBDBD</color>
+
+    <color name="app_background">#37474F</color>
+    <color name="card_background">#212121</color>
+
+    <color name="commenter_name">#FFFFFF</color>
+</resources>

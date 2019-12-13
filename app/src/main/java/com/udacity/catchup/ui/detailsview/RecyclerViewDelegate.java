@@ -1,7 +1,9 @@
 package com.udacity.catchup.ui.detailsview;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,10 +48,18 @@ class RecyclerViewDelegate implements DetailsActivityDelegate {
         adapter = new DetailsAdapter(activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
+        setDivider(recyclerView);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void setDivider(RecyclerView recyclerView) {
         DividerItemDecoration divider =
                 new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
+        Drawable dividerDrawable = ContextCompat.getDrawable(activity, R.drawable.divider);
+        if (dividerDrawable != null) {
+            divider.setDrawable(dividerDrawable);
+        }
         recyclerView.addItemDecoration(divider);
-        recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override

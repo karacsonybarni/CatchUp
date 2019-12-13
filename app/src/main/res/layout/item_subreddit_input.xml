@@ -19,6 +19,7 @@
         android:layout_weight="1"
         android:inputType="text"
         android:minWidth="@dimen/subreddit_input_minWidth"
+        android:textColor="@color/secondaryText"
         android:textSize="@dimen/subredditInput_textSize" />
 
     <FrameLayout

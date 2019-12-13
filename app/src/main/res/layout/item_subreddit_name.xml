@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:minWidth="@dimen/subreddit_name_minWidth"
+        android:textColor="@color/secondaryText"
         android:textSize="@dimen/subredditName_textSize"
         app:fontFamily="sans-serif-medium" />
 </merge>

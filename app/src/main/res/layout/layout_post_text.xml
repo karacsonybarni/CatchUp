@@ -9,6 +9,7 @@
         android:layout_marginTop="@dimen/title_margin"
         android:autoLink="web"
         android:gravity="center_vertical"
+        android:textColor="@color/primaryText"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:minHeight="@dimen/tap_minSize"
+        android:textColor="@color/colorPrimary"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bodyText" />

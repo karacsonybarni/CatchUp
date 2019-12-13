@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFF5500</color>
-    <color name="colorPrimaryDark">#ffc41900</color>
+    <color name="colorPrimary">#FF5500</color>
+    <color name="colorPrimaryDark">#C41900</color>
     <color name="colorAccent">@color/colorPrimary</color>
 
     <color name="secondaryGrey">#99000000</color>
@@ -13,4 +13,6 @@
     <color name="card_background">#FFFFFF</color>
     <color name="media_background">#000000</color>
     <color name="add_subreddit_button">#336699</color>
+
+    <color name="commenter_name">@color/secondaryText</color>
 </resources>
