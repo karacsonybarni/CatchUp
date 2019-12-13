@@ -9,8 +9,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ShareActionProvider;
+import androidx.core.view.MenuItemCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.widget.ViewPager2;
@@ -32,6 +35,9 @@ public class PagerActivity extends AppCompatActivity {
     private PagerActivityViewModel viewModel;
     private PagerAdapter adapter;
     private ViewPager2 viewPager;
+
+    @Nullable
+    private ShareActionProvider shareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +68,23 @@ public class PagerActivity extends AppCompatActivity {
                 if (position >= posts.size() - 2) {
                     viewModel.fetchPosts();
                 }
+                if (shareActionProvider != null) {
+                    shareActionProvider.setShareIntent(createShareIntent());
+                }
             }
         };
+    }
+
+    private Intent createShareIntent() {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getCurrentPostUrl());
+        return sendIntent;
+    }
+
+    private String getCurrentPostUrl() {
+        List<Post> posts = adapter.getPosts();
+        return posts != null ? posts.get(viewPager.getCurrentItem()).getMediaUrl() : null;
     }
 
     private void setSeen(int postPosition) {
@@ -121,7 +142,14 @@ public class PagerActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        initShareItem(menu);
         return true;
+    }
+
+    private void initShareItem(Menu menu) {
+        MenuItem shareItem = menu.findItem(R.id.share);
+        shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        shareActionProvider.setShareIntent(createShareIntent());
     }
 
     @Override

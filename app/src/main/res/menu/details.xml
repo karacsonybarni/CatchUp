@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
         android:id="@+id/share"
         android:icon="@drawable/baseline_share_white_24"
         android:title="@string/share"
         app:actionProviderClass="androidx.appcompat.widget.ShareActionProvider"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_subscriptions"
-        android:icon="@drawable/baseline_tune_white_24"
-        android:title="@string/preferences"
         app:showAsAction="always" />
 </menu>

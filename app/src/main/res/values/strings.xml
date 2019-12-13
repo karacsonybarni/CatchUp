@@ -15,4 +15,6 @@
     <string name="post_details">Posted by %1$s %2$s</string>
     <string name="posted_image">Posted image</string>
     <string name="subreddits">Subreddits</string>
+
+    <string name="share">Share</string>
 </resources>

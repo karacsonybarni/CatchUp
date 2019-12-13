@@ -1,8 +1,14 @@
 package com.udacity.catchup.ui.detailsview;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ShareActionProvider;
+import androidx.core.view.MenuItemCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -22,7 +28,11 @@ public class DetailsActivity extends AppCompatActivity {
 
     private DetailsActivityViewModel viewModel;
     private LiveData<Post> postLiveData;
+    private Post post;
     private DetailsActivityDelegate delegate;
+
+    @Nullable
+    private ShareActionProvider shareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +61,26 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void updatePost(Post post) {
-        updateAppViews(post);
-        updateWidgets(post);
+        this.post = post;
+        initShareButton();
+        updateAppViews();
+        updateWidgets();
     }
 
-    private void updateAppViews(Post post) {
+    private void initShareButton() {
+        if (shareActionProvider != null) {
+            shareActionProvider.setShareIntent(createShareIntent());
+        }
+    }
+
+    private Intent createShareIntent() {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, post.getMediaUrl());
+        return sendIntent;
+    }
+
+    private void updateAppViews() {
         initDelegate(post);
         delegate.initWindow();
         delegate.initViews();
@@ -74,13 +99,24 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void updateWidgets(Post post) {
+    private void updateWidgets() {
         viewModel.setSeen(post);
         PostIntentService.startActionUpdateWidget(this);
     }
 
     DetailsActivityViewModel getViewModel() {
         return viewModel;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.details, menu);
+        MenuItem shareItem = menu.findItem(R.id.share);
+        shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        if (post != null) {
+            shareActionProvider.setShareIntent(createShareIntent());
+        }
+        return true;
     }
 
     @Override
