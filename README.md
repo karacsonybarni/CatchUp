@@ -5,12 +5,19 @@ that they would like to follow and store.
 The app presents the user with one post at a time from one of their selected subreddits. 
 They can interact with the post or they can swipe to see another one. 
 
+## Generate APK
+
+Run 
+```./gradlew installRelease``` 
+from the root directory. Gradle will take care off everything ;) 
+
 ## Key features
 
 * Fetches and stores a set of subreddits
 * Shows a post from one subreddit at a time
 * The user can swipe horizontally to see other Reddit posts
 * Provides the possibility to interact with a post (i.e. view image posts, play video posts)
+* The user can share the posts
 
 ## User interface
 
@@ -32,7 +39,6 @@ The post appears on a card and it can have texts, links, images and videos.
 The user can swipe right to see another new post, 
 or they can swipe left to read again a post that they've already seen. 
 When the user selects a post by tapping on it, the app takes them to the Details View.
-
 
 ### Details View
 
