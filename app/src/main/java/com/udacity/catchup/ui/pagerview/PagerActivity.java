@@ -84,7 +84,9 @@ public class PagerActivity extends AppCompatActivity {
 
     private String getCurrentPostUrl() {
         List<Post> posts = adapter.getPosts();
-        return posts != null ? posts.get(viewPager.getCurrentItem()).getMediaUrl() : null;
+        return posts != null && !posts.isEmpty()
+                ? posts.get(viewPager.getCurrentItem()).getMediaUrl()
+                : null;
     }
 
     private void setSeen(int postPosition) {
