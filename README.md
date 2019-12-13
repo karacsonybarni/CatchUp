@@ -18,6 +18,7 @@ from the root directory. Gradle will take care off everything ;)
 * The user can swipe horizontally to see other Reddit posts
 * Provides the possibility to interact with a post (i.e. view image posts, play video posts)
 * The user can share the posts
+* Dark mode
 
 ## User interface
 
