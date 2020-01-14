@@ -3,7 +3,7 @@
     android:initialLayout="@layout/post_widget"
     android:minWidth="200dp"
     android:minHeight="200dp"
-    android:previewImage="@mipmap/ic_launcher"
+    android:previewImage="@drawable/ic_launcher"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen"></appwidget-provider>
