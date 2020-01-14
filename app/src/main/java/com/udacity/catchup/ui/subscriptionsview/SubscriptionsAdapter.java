@@ -150,7 +150,7 @@ class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdapter.Sub
         }
 
         private void loadOrHideIcon(String iconUrl) {
-            if (!iconUrl.isEmpty()) {
+            if (iconUrl != null && !iconUrl.isEmpty()) {
                 loadIcon(iconUrl);
             } else {
                 icon.setVisibility(View.INVISIBLE);

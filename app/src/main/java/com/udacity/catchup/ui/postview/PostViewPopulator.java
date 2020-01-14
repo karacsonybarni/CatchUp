@@ -51,7 +51,8 @@ public class PostViewPopulator {
         if (subreddit == null) {
             return;
         }
-        if (!subreddit.getIconUrl().isEmpty()) {
+        String iconUrl = subreddit.getIconUrl();
+        if (iconUrl != null && !iconUrl.isEmpty()) {
             delegate.loadSubredditIcon(subreddit.getIconUrl());
         } else {
             delegate.hideSubredditIconAndUpdateLayout();

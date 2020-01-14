@@ -1,6 +1,7 @@
 package com.udacity.catchup.data.entity.subreddit;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -30,6 +31,7 @@ public class Subreddit {
         this.name = name;
     }
 
+    @Nullable
     public String getIconUrl() {
         return iconUrl;
     }
