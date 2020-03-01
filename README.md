@@ -5,6 +5,9 @@ that they would like to follow and store.
 The app presents the user with one post at a time from one of their selected subreddits. 
 They can interact with the post or they can swipe to see another one. 
 
+## Get it from the Play Store
+Play Store link: https://play.google.com/store/apps/details?id=com.udacity.catchup
+
 ## Generate APK
 
 Run 
